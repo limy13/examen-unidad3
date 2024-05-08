@@ -78,11 +78,12 @@ public class Menu {
                     break;
 
                 case 5:
+                System.out.println("\nSesión cerrada");
+
                     break;
             }
         }
         while(decision != 5);
-        System.out.println("\nSesión cerrada");
     }
 
 
@@ -119,12 +120,12 @@ public class Menu {
 
                 case 6:
                     UsuarioEnSesion.obtenerInstancia().cerrarSesion();
+                    System.out.println("\nSesión cerrada");
                     iniciarSesion();
                     break;
             }
         }
         while(decision != 6);
-        System.out.println("\nSesión cerrada");
     }
 
 
@@ -141,7 +142,7 @@ public class Menu {
             System.out.println("7. Consultar ejecutivo de cuenta");
             System.out.println("8. Modificar de datos ejecutivo de cuenta");
             System.out.println("9. Eliminar ejecutivo de cuenta");
-            System.out.print("10. Cerrar sesión");
+            System.out.println("10. Cerrar sesión");
             System.out.print("\nIngrese opción: ");
             decision = scanner.nextInt();
 
@@ -181,12 +182,13 @@ public class Menu {
 
                 case 10:
                     UsuarioEnSesion.obtenerInstancia().cerrarSesion();
+                    scanner.nextLine();
+                    System.out.println("\nSesión cerrada");
                     iniciarSesion();
                     break;
             }
         }
         while(decision != 10);
-        System.out.println("\nSesión cerrada");
     }
 
 
@@ -256,10 +258,10 @@ public class Menu {
                     break;
 
                 case 5:
+                System.out.println("\nSesión cerrada");
                     break;
             }
         }
         while(decision != 5);
-        System.out.println("\nSesión cerrada");
     }
 }

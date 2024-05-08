@@ -22,7 +22,7 @@ public class Ejecutivo extends Usuario {
 
     public static void registrarEjecutivo() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> datos = Banco.datosComun(Rol.CLIENTE);
+        ArrayList<String> datos = datosComun(Rol.EJECUTIVO);
         String nombre = datos.get(0);
         String apellido = datos.get(1);
         String fechaNacimiento = datos.get(2);
@@ -37,12 +37,12 @@ public class Ejecutivo extends Usuario {
         System.out.println("Salario: ");
         double salario = scanner.nextShort();
 
-        if(!Banco.sucursal.get(Banco.getSucu()).containsKey(Rol.EJECUTIVO)) {
-            Banco.sucursal.get(Banco.getSucu()).put(Rol.EJECUTIVO, new ArrayList<Usuario>());
+        if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.EJECUTIVO)) {
+            Banco.sucursal.get(Banco.sucu).put(Rol.EJECUTIVO, new ArrayList<Usuario>());
         }
 
         Ejecutivo ejecutivo = new Ejecutivo(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc, salario);
-        Banco.sucursal.get(Banco.getSucu()).get(Rol.EJECUTIVO).add(ejecutivo);
+        Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO).add(ejecutivo);
     }
 
     public static void listarEjecutivos() {
@@ -53,13 +53,13 @@ public class Ejecutivo extends Usuario {
         System.out.print("\nIngrese opción: ");
         int decision = scanner.nextInt();
 
-        if(Banco.sucursal.get(Banco.getSucu()).get(Rol.EJECUTIVO).isEmpty()) {
+        if(Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO).isEmpty()) {
             System.out.println("\nNo hay ejecutivos registrados todavía");
         }
         else if (decision == 1) {
             int x = 1;
             System.out.println("\nEjecutivos registrados");
-            for(Usuario usuario : Banco.sucursal.get(Banco.getSucu()).get(Rol.EJECUTIVO)) {
+            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
                 System.out.println("\n---- Ejecutivos " + x + "----\n");
                 System.out.println(usuario.getData());
             }
@@ -68,7 +68,7 @@ public class Ejecutivo extends Usuario {
             System.out.println("\n ---- Consultar ejecutivo de cuenta ----\n");
             System.out.print("Ingrese el nombre de usuario del ejecutivo que desea consultar: ");
             String nombreUsuario = scanner.nextLine();
-            for(Usuario usuario : Banco.sucursal.get(Banco.getSucu()).get(Rol.EJECUTIVO)) {
+            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
                 if(usuario.getNombreUsuario().equals(nombreUsuario)) {
                     System.out.println("\n---- Ejecutivo ----\n");
                     System.out.println(usuario.getData());
@@ -84,9 +84,9 @@ public class Ejecutivo extends Usuario {
         System.out.println("\n---- Eliminar ejecutivo de cuenta ----\n");
         System.out.print("Ingrese el nombre de usuario del ejecutivo que desea eliminar: ");
         String nombreUsuario = scanner.nextLine();
-        for(Usuario usuario : Banco.sucursal.get(Banco.getSucu()).get(Rol.EJECUTIVO)) {
+        for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
             if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                Banco.sucursal.get(Banco.getSucu()).get(Rol.EJECUTIVO).remove(usuario);
+                Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO).remove(usuario);
                 System.out.println("\nEjecutivo eliminado");
                 return;
             }

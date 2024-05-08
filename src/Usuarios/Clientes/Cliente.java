@@ -15,7 +15,7 @@ public class Cliente extends Usuario {
     }
 
     public static void registrarCliente() {
-        ArrayList<String> datos = Banco.datosComun(Rol.CLIENTE);
+        ArrayList<String> datos = datosComun(Rol.CLIENTE);
         String nombre = datos.get(0);
         String apellido = datos.get(1);
         String fechaNacimiento = datos.get(2);
@@ -31,11 +31,11 @@ public class Cliente extends Usuario {
         //agregar metodo para asignar tarjeta
         Cliente cliente = new Cliente(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc);
 
-        if(!Banco.sucursal.get(Banco.getSucu()).containsKey(Rol.CLIENTE)) {
-            Banco.sucursal.get(Banco.getSucu()).put(Rol.CLIENTE, new ArrayList<Usuario>());
+        if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.CLIENTE)) {
+            Banco.sucursal.get(Banco.sucu).put(Rol.CLIENTE, new ArrayList<Usuario>());
         }
 
-        Banco.sucursal.get(Banco.getSucu()).get(Rol.CLIENTE).add(cliente);
+        Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).add(cliente);
     }
 
     public static void listarClientes() {
@@ -46,13 +46,13 @@ public class Cliente extends Usuario {
         System.out.print("\nIngrese opción: ");
         int decision = scanner.nextInt();
 
-        if(Banco.sucursal.get(Banco.getSucu()).get(Rol.CLIENTE).isEmpty()) {
+        if(Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).isEmpty()) {
             System.out.println("\nNo hay clientes registrados todavía");
         }
         else if (decision == 1) {
             int x = 1;
             System.out.println("\nClientes registrados");
-            for(Usuario usuario : Banco.sucursal.get(Banco.getSucu()).get(Rol.CLIENTE)) {
+            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
                 System.out.println("\n---- Cliente " + x + "----\n");
                 System.out.println(usuario.getData());
                 System.out.println("\n* Datos sobre tarjeta *\n");
@@ -63,7 +63,7 @@ public class Cliente extends Usuario {
         System.out.println("\n ---- Consultar cliente ----\n");
         System.out.print("Ingrese el nombre de usuario del cliente que desea consultar: ");
         String nombreUsuario = scanner.nextLine();
-            for(Usuario usuario : Banco.sucursal.get(Banco.getSucu()).get(Rol.CLIENTE)) {
+            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
                 if(usuario.getNombreUsuario().equals(nombreUsuario)) {
                     System.out.println("\n---- Cliente ----\n");
                     System.out.println(usuario.getData());
@@ -81,7 +81,7 @@ public class Cliente extends Usuario {
         System.out.println("\n---- Eliminar cliente ----\n");
         System.out.print("Ingrese el nombre de usuario del cliente que desea eliminar: ");
         String nombreUsuario = scanner.nextLine();
-        for(Usuario usuario : Banco.sucursal.get(Banco.getSucu()).get(Rol.CLIENTE)) {
+        for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
             if(usuario.getNombreUsuario().equals(nombreUsuario)) {
                 Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).remove(usuario);
                 System.out.println("\nCliente eliminado");
@@ -94,6 +94,3 @@ public class Cliente extends Usuario {
     }
 }
 
-
-// HOLA LIZ COMO ESTAS :D
-//mal y tu?

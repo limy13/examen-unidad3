@@ -21,10 +21,6 @@ public class Banco {
         sucursal.get("Acueducto").get(Rol.GERENTE).add(gerente2);
     }
 
-    public static String getSucu() {
-        return sucu;
-    }
-
     Usuario verificarInicioSesion(String nombreUsuario, String contraseña, String key) {
         if(key.equalsIgnoreCase("Madero")) {
             sucu = "Madero";
@@ -44,79 +40,5 @@ public class Banco {
             }
         }
         return null;
-    }
-
-
-    public static ArrayList datosComun(Rol rol) {
-        ArrayList<String> datosComun = new ArrayList<String>();
-        Scanner scanner = new Scanner(System.in);
-        String rolUsuario = rol == Rol.CLIENTE ? "Cliente" : rol == Rol.CAPTURISTA ? "Capturista" :
-                rol == Rol.EJECUTIVO ? "Ejecutivo" : "Inversionista";
-
-        System.out.println(String.format("\nBienvenido al registro del %s", rolUsuario));
-        System.out.println("\nIngresa los siguientes datos para continuar con el registro: ");
-        System.out.print("\nNombre: ");
-        String nombre = scanner.nextLine();
-        System.out.print("Apellido: ");
-        String apellido = scanner.nextLine();
-        System.out.print("Fecha de nacimiento (DD/MM/YYYY): ");
-        String fechaNacimiento = scanner.nextLine();
-        System.out.print("Estado: ");
-        String estado = scanner.nextLine();
-        System.out.print("Ciudad: ");
-        String ciudad = scanner.nextLine();
-        System.out.println("Dirección: ");
-        String direccion = scanner.nextLine();
-        System.out.println("CURP: ");
-        String curp = scanner.nextLine();
-        String nombreUsuario = registrarNombreUsuario();
-        String rfc = generarRfc(fechaNacimiento, nombre, apellido);
-        System.out.print("Contraseña: ");
-        String contraseña = scanner.nextLine();
-
-        datosComun.addAll(Arrays.asList(nombre, apellido, fechaNacimiento, estado, ciudad, direccion, curp.toUpperCase(), nombreUsuario, contraseña, rfc, sucu));
-        return datosComun;
-    }
-
-
-    public static String registrarNombreUsuario() {
-        Scanner scanner = new Scanner(System.in);
-        String nombreUsuario = "";
-        boolean nombreUsuarioExistente = true;
-        Map<Rol, ArrayList<Usuario>> lista = sucursal.get(sucu);
-        do {
-            System.out.println("\nIngresa el nombre de usuario: ");
-            nombreUsuario = scanner.nextLine();
-            nombreUsuarioExistente = false;
-            for(ArrayList<Usuario> usuarios : lista.values()) {
-                for(Usuario usuario : usuarios) {
-                    if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                        nombreUsuarioExistente = true;
-                        break;
-                    }
-                }
-            }
-            if(nombreUsuarioExistente) {
-                System.out.println("\nYa existe un registro con ese nombre de usuario. Intenta de nuevo.");
-            }
-        }
-        while(nombreUsuarioExistente);
-        return nombreUsuario;
-    }
-
-
-    public static String generarRfc(String fechaNacimiento, String nombre, String apellido) {
-        String caracteres = "abcdefghijklmnopqrstuvwxyz0123456789";
-        String rfc;
-        Random random = new Random();
-        String homoclave = "";
-        for (int i = 0; i < 3; i++) {
-            char caracter = caracteres.charAt(random.nextInt(caracteres.length()));
-            homoclave += caracter;
-        }
-        String [] partesNacimiento = fechaNacimiento.split("/");
-        String [] partesApellido = fechaNacimiento.split(" ");
-        return rfc = (apellido.charAt(0) + apellido.charAt(1) + partesApellido[0].charAt(0) + nombre.charAt(0)
-                + partesNacimiento[2].charAt(2) + partesNacimiento[2].charAt(3) + partesNacimiento[1] + partesNacimiento[0] + homoclave).toUpperCase();
     }
 }
