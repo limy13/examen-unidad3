@@ -16,7 +16,7 @@ public class Usuario {
     private LocalDate fechaIngreso;
     private Rol rol;
 
-    public Usuario(String sucursal, String direcccion, String curp, String estado, String ciudad, String fechaNacimiento, String apellidos, String nombre, LocalDate fechaIngreso, String nombreUsuario, String contraseña, Rol rol, String rfc) {
+    public Usuario(String sucursal, String direcccion, String curp, String estado, String ciudad, String fechaNacimiento, String apellidos, String nombre, String nombreUsuario, String contraseña, Rol rol, String rfc) {
         this.rfc = rfc;
         this.sucursal = sucursal;
         this.direcccion = direcccion;
@@ -26,7 +26,7 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
         this.apellidos = apellidos;
         this.nombre = nombre;
-        this.fechaIngreso = fechaIngreso;
+        this.fechaIngreso = LocalDate.now();
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
         this.rol = rol;
@@ -51,7 +51,7 @@ public class Usuario {
         String rolUsuario = rol == Rol.CLIENTE ? "Cliente" : rol == Rol.CAPTURISTA ? "Capturista" :
                 rol == Rol.EJECUTIVO ? "Ejecutivo" : "Inversionista";
 
-        System.out.println(String.format("\nBienvenido al registro del %s", rolUsuario));
+        System.out.println(String.format("\n\n---- Bienvenido al registro del %s", rolUsuario + "----"));
         System.out.println("\nIngresa los siguientes datos para continuar con el registro: ");
         System.out.print("\nNombre: ");
         String nombre = scanner.nextLine();
@@ -61,7 +61,6 @@ public class Usuario {
         int dia, mes, año;
         boolean band = false;
         String fechaActual = String.valueOf(LocalDate.now());
-        System.out.println(fechaActual);
         String [] partes = fechaActual.split("-");
         do {
             System.out.print("\nAño: ");
@@ -118,7 +117,7 @@ public class Usuario {
         boolean nombreUsuarioExistente = true;
         Map<Rol, ArrayList<Usuario>> lista = Banco.sucursal.get(Banco.sucu);
         do {
-            System.out.println("\nIngresa el nombre de usuario: ");
+            System.out.print("\nIngresa el nombre de usuario: ");
             nombreUsuario = scanner.nextLine();
             nombreUsuarioExistente = false;
             for(ArrayList<Usuario> usuarios : lista.values()) {
@@ -137,7 +136,6 @@ public class Usuario {
         return nombreUsuario;
     }
 
-//arreglar esto
     public static String generarRfc(String fechaNacimiento, String nombre, String apellido) {
         String caracteres = "abcdefghijklmnopqrstuvwxyz0123456789";
         String rfc;
@@ -148,14 +146,14 @@ public class Usuario {
             homoclave += caracter;
         }
         String [] partesNacimiento = fechaNacimiento.split("/");
-        String [] partesApellido = fechaNacimiento.split(" ");
-        return rfc = (apellido.charAt(0) + apellido.charAt(1) + partesApellido[0].charAt(0) + nombre.charAt(0)
-                + partesNacimiento[2].charAt(2) + partesNacimiento[2].charAt(3) + partesNacimiento[1] + partesNacimiento[0] + homoclave).toUpperCase();
+        String [] partesApellido = apellido.split(" ");
+        System.out.println(apellido.charAt(0));
+        return rfc = ("" + apellido.charAt(0) + apellido.charAt(1) + partesApellido[1].charAt(0) + nombre.charAt(0) +
+        partesNacimiento[2].charAt(2) + partesNacimiento[2].charAt(3) + partesNacimiento[1] + partesNacimiento[0] + homoclave).toUpperCase();
     }
-    
 
     public String getData() {
         return String.format("\nNombre: %s %s \nSucursal a la que pertenece: %s \nRFC: %s \nCURP: %s \nFecha de nacimiento: %s \nEstado: %s \nCiudad: %s \nDireccion: %s",
-                nombre, apellidos, sucursal, rfc, curp, fechaNacimiento, estado, ciudad, direcccion) + "Rol: " + rol;
+                nombre, apellidos, sucursal, rfc, curp, fechaNacimiento, estado, ciudad, direcccion) + "\nRol: " + rol + "\nFecha de ingreso: " + fechaIngreso;
     }
 }

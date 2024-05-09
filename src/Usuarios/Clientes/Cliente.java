@@ -11,10 +11,11 @@ import java.util.Scanner;
 public class Cliente extends Usuario {
 
     public Cliente(String sucursal, String direcccion, String curp, String estado, String ciudad, String fechaNacimiento, String apellidos, String nombre, String nombreUsuario, String contraseña, String rfc) {
-        super(sucursal, direcccion, curp, estado, ciudad, fechaNacimiento, apellidos, nombre, LocalDate.now(), nombreUsuario, contraseña, Rol.CLIENTE, rfc);
+        super(sucursal, direcccion, curp, estado, ciudad, fechaNacimiento, apellidos, nombre, nombreUsuario, contraseña, Rol.CLIENTE, rfc);
     }
 
     public static void registrarCliente() {
+        Scanner scanner = new Scanner(System.in);
         ArrayList<String> datos = datosComun(Rol.CLIENTE);
         String nombre = datos.get(0);
         String apellido = datos.get(1);
@@ -27,8 +28,11 @@ public class Cliente extends Usuario {
         String contraseña = datos.get(8);
         String rfc = datos.get(9);
         String sucursal = datos.get(10);
+        System.out.println("Saldo actual: ");
+        double saldo = scanner.nextDouble();
+        
+        Tarjeta.asignarTarjeta(saldo);
 
-        //agregar metodo para asignar tarjeta
         Cliente cliente = new Cliente(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc);
 
         if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.CLIENTE)) {
@@ -53,24 +57,28 @@ public class Cliente extends Usuario {
             int x = 1;
             System.out.println("\nClientes registrados");
             for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
-                System.out.println("\n---- Cliente " + x + "----\n");
+                System.out.println("\n---- Cliente " + x + "----");
                 System.out.println(usuario.getData());
                 System.out.println("\n* Datos sobre tarjeta *\n");
                 //imprimir dtos tarjeta
             }
         }
         else {
-        System.out.println("\n ---- Consultar cliente ----\n");
-        System.out.print("Ingrese el nombre de usuario del cliente que desea consultar: ");
-        String nombreUsuario = scanner.nextLine();
+            boolean band = false;
+            System.out.println("\n---- Consultar cliente ----\n");
+            System.out.print("Ingrese el nombre de usuario del cliente que desea consultar: ");
+            String nombreUsuario = scanner.nextLine();
             for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
                 if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                    System.out.println("\n---- Cliente ----\n");
+                    System.out.println("\n---- Cliente ----");
                     System.out.println(usuario.getData());
                     System.out.println("\n* Datos sobre tarjeta *\n");
                     //imprimir dtos tarjeta
                     return;
                 }
+            }
+            if(!band) {
+                System.out.println("\nEste nombre de usuario no pertenece a ningún cliente");
             }
         }
     }
@@ -89,7 +97,7 @@ public class Cliente extends Usuario {
             }
         }
         if(!band) {
-            System.out.println("Este nombre de usuario no pertenece a ningún cliente");
+            System.out.println("\nEste nombre de usuario no pertenece a ningún cliente");
         }
     }
 }

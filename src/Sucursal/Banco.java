@@ -28,8 +28,7 @@ public class Banco {
         else {
             sucu = "Acueducto";
         }
-        Map<Rol, ArrayList<Usuario>> lista = sucursal.get(sucu);
-        for (ArrayList<Usuario> usuarios : lista.values()) {
+        for (ArrayList<Usuario> usuarios : sucursal.get(sucu).values()) {
             for (Usuario usuario : usuarios) {
                 if (usuario.getNombreUsuario().equals(nombreUsuario)) {
                     if (usuario.getContraseña().equals(contraseña)) {

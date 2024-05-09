@@ -78,8 +78,10 @@ public class Menu {
                     break;
 
                 case 5:
-                System.out.println("\nSesión cerrada");
-
+                    UsuarioEnSesion.obtenerInstancia().cerrarSesion();
+                    scanner.nextLine();
+                    System.out.println("\nSesión cerrada");
+                    iniciarSesion();
                     break;
             }
         }
@@ -120,6 +122,7 @@ public class Menu {
 
                 case 6:
                     UsuarioEnSesion.obtenerInstancia().cerrarSesion();
+                    scanner.nextLine();
                     System.out.println("\nSesión cerrada");
                     iniciarSesion();
                     break;
@@ -140,9 +143,12 @@ public class Menu {
             System.out.println("5. Solicitudes de tarjeta de crédito");
             System.out.println("6. Registrar ejecutivo de cuenta");
             System.out.println("7. Consultar ejecutivo de cuenta");
-            System.out.println("8. Modificar de datos ejecutivo de cuenta");
+            System.out.println("8. Modificar datos de ejecutivo de cuenta");
             System.out.println("9. Eliminar ejecutivo de cuenta");
-            System.out.println("10. Cerrar sesión");
+            System.out.println("10. Registrar capturista");
+            System.out.println("11. Consultar capturista");
+            System.out.println("12. Modificar datos de capturista");
+            System.out.println("13. Cerrar sesión");
             System.out.print("\nIngrese opción: ");
             decision = scanner.nextInt();
 
@@ -181,6 +187,15 @@ public class Menu {
                     break;
 
                 case 10:
+                    break;
+
+                case 11:
+                    break;
+
+                case 12:
+                    break;
+
+                case 13:
                     UsuarioEnSesion.obtenerInstancia().cerrarSesion();
                     scanner.nextLine();
                     System.out.println("\nSesión cerrada");
@@ -188,7 +203,7 @@ public class Menu {
                     break;
             }
         }
-        while(decision != 10);
+        while(decision != 13);
     }
 
 
@@ -222,6 +237,8 @@ public class Menu {
 
                 case 5:
                     UsuarioEnSesion.obtenerInstancia().cerrarSesion();
+                    scanner.nextLine();
+                    System.out.println("\nSesión cerrada");
                     iniciarSesion();
                     break;
             }
@@ -258,7 +275,10 @@ public class Menu {
                     break;
 
                 case 5:
-                System.out.println("\nSesión cerrada");
+                    UsuarioEnSesion.obtenerInstancia().cerrarSesion();
+                    scanner.nextLine();
+                    System.out.println("\nSesión cerrada");
+                    iniciarSesion();                    
                     break;
             }
         }

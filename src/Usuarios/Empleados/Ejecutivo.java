@@ -11,7 +11,7 @@ public class Ejecutivo extends Usuario {
     private double salario;
 
     public Ejecutivo(String sucursal, String direcccion, String curp, String estado, String ciudad, String fechaNacimiento, String apellidos, String nombre, String nombreUsuario, String contraseña, String rfc, double salario) {
-        super(sucursal, direcccion, curp, estado, ciudad, fechaNacimiento, apellidos, nombre, LocalDate.now(), nombreUsuario, contraseña, Rol.EJECUTIVO, rfc);
+        super(sucursal, direcccion, curp, estado, ciudad, fechaNacimiento, apellidos, nombre, nombreUsuario, contraseña, Rol.EJECUTIVO, rfc);
         this.salario = salario;
     }
 
@@ -60,20 +60,24 @@ public class Ejecutivo extends Usuario {
             int x = 1;
             System.out.println("\nEjecutivos registrados");
             for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
-                System.out.println("\n---- Ejecutivos " + x + "----\n");
+                System.out.println("\n---- Ejecutivos " + x + "----");
                 System.out.println(usuario.getData());
             }
         }
         else {
-            System.out.println("\n ---- Consultar ejecutivo de cuenta ----\n");
+            boolean band = false;
+            System.out.println("\n---- Consultar ejecutivo de cuenta ----\n");
             System.out.print("Ingrese el nombre de usuario del ejecutivo que desea consultar: ");
             String nombreUsuario = scanner.nextLine();
             for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
                 if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                    System.out.println("\n---- Ejecutivo ----\n");
+                    System.out.println("\n---- Ejecutivo ----");
                     System.out.println(usuario.getData());
                     return;
                 }
+            }
+            if(!band) {
+                System.out.println("\nEste nombre de usuario no pertenece a ningún ejecutivo");
             }
         }
     }
@@ -92,7 +96,7 @@ public class Ejecutivo extends Usuario {
             }
         }
         if(!band) {
-            System.out.println("Este nombre de usuario no pertenece a ningún ejecutivo");
+            System.out.println("\nEste nombre de usuario no pertenece a ningún ejecutivo");
         }
     }
 }
