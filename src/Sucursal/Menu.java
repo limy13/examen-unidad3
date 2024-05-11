@@ -1,6 +1,8 @@
 package Sucursal;
 import Usuarios.Clientes.Cliente;
+import Usuarios.Empleados.Capturista;
 import Usuarios.Empleados.Ejecutivo;
+import Usuarios.Inversionista;
 import Usuarios.Usuario;
 import utils.UsuarioEnSesion;
 import java.util.Scanner;
@@ -10,6 +12,8 @@ public class Menu {
     private Scanner scanner = new Scanner(System.in);
     private Banco banco = new Banco();
     private int decision = 0;
+    private String contraseña = "INVERSIONISTA", cadena;
+    private boolean band = false;
 
     public void iniciarSesion() {
         boolean datosCorrectos = true;
@@ -56,10 +60,13 @@ public class Menu {
         do {
             System.out.println("\n\n---- BIENVENIDO CLIENTE ----\n");
             System.out.println(usuario);
-            System.out.println("\n1. Consultar libros");
-            System.out.println("2. Consultar rentas");
-            System.out.println("3. Mostrar mis datos");
-            System.out.println("4. Editar mi información");
+            System.out.println("\n1. Realizar compra");
+            System.out.println("2. Mostrar información de tarjetas");
+            System.out.println("3. Depositar");
+            System.out.println("4. Retirar");
+
+            //agregar opciones para solicitud y ver status de solicitud
+
             System.out.println("5. Cerrar sesión");
             System.out.print("\nIngrese opción: ");
             decision = scanner.nextInt();
@@ -148,7 +155,13 @@ public class Menu {
             System.out.println("10. Registrar capturista");
             System.out.println("11. Consultar capturista");
             System.out.println("12. Modificar datos de capturista");
-            System.out.println("13. Cerrar sesión");
+            System.out.println("13. Eliminar capturista");
+            System.out.println("14. Registrar inversionista");
+            System.out.println("15. Consultar inversionista");
+            System.out.println("16. Modificar datos de inversionista");
+            System.out.println("17. Eliminar inversionista");
+            System.out.println("18. Mostrar inversiones recientes");
+            System.out.println("19. Cerrar sesión");
             System.out.print("\nIngrese opción: ");
             decision = scanner.nextInt();
 
@@ -187,15 +200,75 @@ public class Menu {
                     break;
 
                 case 10:
+                    Capturista.registrarCapturista();
                     break;
 
                 case 11:
+                    Capturista.listarCapturistas();
                     break;
 
                 case 12:
                     break;
 
                 case 13:
+                    Capturista.eliminarCapturista();
+                    break;
+
+                case 14:
+                    do {
+                        System.out.print("\nIngrese la contraseña para poder acceder a esta función: ");
+                        cadena = scanner.nextLine();
+                        if(cadena.equals(contraseña)) {
+                            Inversionista.registrarInversionista();
+                            band = true;
+                        }
+                        else {
+                            System.out.println("\nContraseña incorrecta, inténtelo de nuevo");
+                        }
+                    }
+                    while(!band);
+                    band = false;
+                    break;
+
+                case 15:
+                    do {
+                        System.out.print("\nIngrese la contraseña para poder acceder a esta función: ");
+                        cadena = scanner.nextLine();
+                        if(cadena.equals(contraseña)) {
+                            Inversionista.listarInversionistas();
+                            band = true;
+                        }
+                        else {
+                            System.out.println("\nContraseña incorrecta, inténtelo de nuevo");
+                        }
+                    }
+                    while(!band);
+                    band = false;
+                    break;
+
+                case 16:
+                    break;
+
+                case 17:
+                    do {
+                        System.out.print("\nIngrese la contraseña para poder acceder a esta función: ");
+                        cadena = scanner.nextLine();
+                        if(cadena.equals(contraseña)) {
+                            Inversionista.eliminarInversionista();
+                            band = true;
+                        }
+                        else {
+                            System.out.println("\nContraseña incorrecta, inténtelo de nuevo");
+                        }
+                    }
+                    while(!band);
+                    band = false;
+                    break;
+
+                case 18: 
+                    break;
+
+                case 19:
                     UsuarioEnSesion.obtenerInstancia().cerrarSesion();
                     scanner.nextLine();
                     System.out.println("\nSesión cerrada");
@@ -203,7 +276,7 @@ public class Menu {
                     break;
             }
         }
-        while(decision != 13);
+        while(decision != 18);
     }
 
 
@@ -245,7 +318,6 @@ public class Menu {
         }
         while(decision != 5);
         System.out.println("\nSesión cerrada");
-
     }
 
 
@@ -253,11 +325,11 @@ public class Menu {
         do {
             System.out.println("\n\n---- BIENVENIDO INVERSIONISTA ----\n");
             System.out.println(usuario);
-            System.out.println("\n1. Consultar libros");
-            System.out.println("2. Consultar rentas");
-            System.out.println("3. Mostrar mis datos");
-            System.out.println("4. Editar mi información");
-            System.out.println("5. Cerrar sesión");
+            System.out.println("\n1. Proveer fondos");
+        
+            //discutir si deben haber mas funciones
+
+            System.out.println("2. Cerrar sesión");
             System.out.println("\nIngrese opción: ");
             decision = scanner.nextInt();
 
@@ -266,15 +338,6 @@ public class Menu {
                     break;
 
                 case 2:
-                    break;
-
-                case 3:
-                    break;
-
-                case 4:
-                    break;
-
-                case 5:
                     UsuarioEnSesion.obtenerInstancia().cerrarSesion();
                     scanner.nextLine();
                     System.out.println("\nSesión cerrada");
@@ -282,6 +345,6 @@ public class Menu {
                     break;
             }
         }
-        while(decision != 5);
+        while(decision != 2);
     }
 }

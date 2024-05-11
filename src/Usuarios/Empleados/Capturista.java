@@ -36,14 +36,22 @@ public class Capturista extends Usuario {
         String rfc = datos.get(9);
         String sucursal = datos.get(10);
         System.out.println("Salario: ");
-        double salario = scanner.nextShort();
+        double salario = scanner.nextDouble();
 
-        if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.CAPTURISTA)) {
-            Banco.sucursal.get(Banco.sucu).put(Rol.CAPTURISTA, new ArrayList<Usuario>());
+        System.out.println("\n¿Cancelar registro? (1 = si, 2 = no)");
+        int decision = scanner.nextInt();
+        if(decision == 1) {
+            System.out.println("\nRegistro cancelado");
         }
+        else {
+            if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.CAPTURISTA)) {
+                Banco.sucursal.get(Banco.sucu).put(Rol.CAPTURISTA, new ArrayList<Usuario>());
+            }
 
-        Capturista capturista = new Capturista(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc, salario);
-        Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA).add(capturista);
+            Capturista capturista = new Capturista(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc, salario);
+            Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA).add(capturista);
+            System.out.println("\nCapturista registrado exitosamente");
+        }
     }
 
     public static void listarCapturistas() {

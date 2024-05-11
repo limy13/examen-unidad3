@@ -1,14 +1,16 @@
 package Usuarios.Clientes;
-
 import Sucursal.Banco;
 import Usuarios.Usuario;
 import Usuarios.utils.Rol;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cliente extends Usuario {
+
+
+    //agregar id
+    
+    private static Tarjeta tarjeta;
 
     public Cliente(String sucursal, String direcccion, String curp, String estado, String ciudad, String fechaNacimiento, String apellidos, String nombre, String nombreUsuario, String contraseña, String rfc) {
         super(sucursal, direcccion, curp, estado, ciudad, fechaNacimiento, apellidos, nombre, nombreUsuario, contraseña, Rol.CLIENTE, rfc);
@@ -28,18 +30,26 @@ public class Cliente extends Usuario {
         String contraseña = datos.get(8);
         String rfc = datos.get(9);
         String sucursal = datos.get(10);
-        System.out.println("Saldo actual: ");
+        System.out.print("Saldo actual: ");
         double saldo = scanner.nextDouble();
         
-        Tarjeta.asignarTarjeta(saldo);
+        tarjeta = new Tarjeta(saldo);
 
         Cliente cliente = new Cliente(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc);
 
-        if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.CLIENTE)) {
-            Banco.sucursal.get(Banco.sucu).put(Rol.CLIENTE, new ArrayList<Usuario>());
+        System.out.println("\n¿Cancelar registro? (1 = si, 2 = no)");
+        int decision = scanner.nextInt();
+        if(decision == 1) {
+            System.out.println("\nRegistro cancelado");
         }
-
-        Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).add(cliente);
+        else {
+            if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.CLIENTE)) {
+                Banco.sucursal.get(Banco.sucu).put(Rol.CLIENTE, new ArrayList<Usuario>());
+            }
+    
+            Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).add(cliente);
+            System.out.println("\nCliente registrado exitosamente");
+        }
     }
 
     public static void listarClientes() {
@@ -55,12 +65,13 @@ public class Cliente extends Usuario {
         }
         else if (decision == 1) {
             int x = 1;
-            System.out.println("\nClientes registrados");
+            System.out.println("\nClientes registrados:");
             for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
-                System.out.println("\n---- Cliente " + x + "----");
+                System.out.println("\n---- Cliente " + x + " ----");
                 System.out.println(usuario.getData());
-                System.out.println("\n* Datos sobre tarjeta *\n");
+                tarjeta.mostrarDatosTarjeta();
                 //imprimir dtos tarjeta
+                x++;
             }
         }
         else {
@@ -72,7 +83,7 @@ public class Cliente extends Usuario {
                 if(usuario.getNombreUsuario().equals(nombreUsuario)) {
                     System.out.println("\n---- Cliente ----");
                     System.out.println(usuario.getData());
-                    System.out.println("\n* Datos sobre tarjeta *\n");
+                    tarjeta.mostrarDatosTarjeta();
                     //imprimir dtos tarjeta
                     return;
                 }

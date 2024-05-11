@@ -2,7 +2,6 @@ package Usuarios.Empleados;
 import Sucursal.Banco;
 import Usuarios.Usuario;
 import Usuarios.utils.Rol;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,14 +34,22 @@ public class Ejecutivo extends Usuario {
         String rfc = datos.get(9);
         String sucursal = datos.get(10);
         System.out.println("Salario: ");
-        double salario = scanner.nextShort();
+        double salario = scanner.nextDouble();
 
-        if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.EJECUTIVO)) {
-            Banco.sucursal.get(Banco.sucu).put(Rol.EJECUTIVO, new ArrayList<Usuario>());
+        System.out.println("\n¿Cancelar registro? (1 = si, 2 = no)");
+        int decision = scanner.nextInt();
+        if(decision == 1) {
+            System.out.println("\nRegistro cancelado");
         }
-
-        Ejecutivo ejecutivo = new Ejecutivo(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc, salario);
-        Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO).add(ejecutivo);
+        else {
+            if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.EJECUTIVO)) {
+                Banco.sucursal.get(Banco.sucu).put(Rol.EJECUTIVO, new ArrayList<Usuario>());
+            }
+    
+            Ejecutivo ejecutivo = new Ejecutivo(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc, salario);
+            Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO).add(ejecutivo);
+            System.out.println("\nEjecutivo registrado exitosamente");
+        }
     }
 
     public static void listarEjecutivos() {
@@ -58,10 +65,11 @@ public class Ejecutivo extends Usuario {
         }
         else if (decision == 1) {
             int x = 1;
-            System.out.println("\nEjecutivos registrados");
+            System.out.println("\nEjecutivos registrados:");
             for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
-                System.out.println("\n---- Ejecutivos " + x + "----");
+                System.out.println("\n---- Ejecutivos " + x + " ----");
                 System.out.println(usuario.getData());
+                x++;
             }
         }
         else {

@@ -56,6 +56,7 @@ public class Usuario {
         System.out.print("\nNombre: ");
         String nombre = scanner.nextLine();
         System.out.print("Apellido: ");
+        //validar que sean 2 apellidos
         String apellido = scanner.nextLine();
         System.out.print("Fecha de nacimiento: ");
         int dia, mes, año;
@@ -115,6 +116,7 @@ public class Usuario {
         Scanner scanner = new Scanner(System.in);
         String nombreUsuario = "";
         boolean nombreUsuarioExistente = true;
+        //cambiar a que no haya usuaris repetidos en las 2 sucurslaes
         Map<Rol, ArrayList<Usuario>> lista = Banco.sucursal.get(Banco.sucu);
         do {
             System.out.print("\nIngresa el nombre de usuario: ");
@@ -147,7 +149,6 @@ public class Usuario {
         }
         String [] partesNacimiento = fechaNacimiento.split("/");
         String [] partesApellido = apellido.split(" ");
-        System.out.println(apellido.charAt(0));
         return rfc = ("" + apellido.charAt(0) + apellido.charAt(1) + partesApellido[1].charAt(0) + nombre.charAt(0) +
         partesNacimiento[2].charAt(2) + partesNacimiento[2].charAt(3) + partesNacimiento[1] + partesNacimiento[0] + homoclave).toUpperCase();
     }
