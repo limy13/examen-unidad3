@@ -1,6 +1,5 @@
 package Usuarios;
 import Usuarios.utils.Rol;
-
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

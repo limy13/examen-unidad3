@@ -2,7 +2,6 @@ package Usuarios.Clientes.Tarjetas;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import Usuarios.Clientes.Tarjetas.utils.EstadoSolicitud;
 import Usuarios.Clientes.Tarjetas.utils.TiposTarjeta;
 
@@ -63,57 +62,63 @@ public class Solicitud {
         boolean band = true, band2 = false;
         Scanner scanner = new Scanner(System.in);
         int x = 1;
-        System.out.println("\n---- Solicitudes pendientes por aprobar ----\n");
-        for(Solicitud i : solicitudesPendientes) {
-            System.out.println("\n**** Solicitud " + x + " ****");
-            System.out.println(i.getData());
-            x++;
-        }
-        do {
-        System.out.println("\n1. Aprobar solicitud");
-        System.out.println("2. Rechazar");
-        System.out.print("\nIngrese opción: ");
-        int id;
-        int decision = scanner.nextInt();
-        if(decision == 1) {
-            System.out.print("\nIngrese el ID de la solicitud que desea aprobar: ");
-            id = scanner.nextInt();
+        if(!solicitudesPendientes.isEmpty()) {
+    
+            System.out.println("\n---- Solicitudes pendientes por aprobar ----\n");
             for(Solicitud i : solicitudesPendientes) {
-                if(id == i.getId()) {
-                    i.setStatus(EstadoSolicitud.APROBADA);
-                    System.out.println("\nSolicitud aprobada");
-                    band2 = true;
-                    return;
+                System.out.println("\n**** Solicitud " + x + " ****");
+                System.out.println(i.getData());
+                x++;
+            }
+            do {
+                System.out.println("\n1. Aprobar solicitud");
+                System.out.println("2. Rechazar");
+                System.out.print("\nIngrese opción: ");
+                int id;
+                int decision = scanner.nextInt();
+                if(decision == 1) {
+                    System.out.print("\nIngrese el ID de la solicitud que desea aprobar: ");
+                    id = scanner.nextInt();
+                    for(Solicitud i : solicitudesPendientes) {
+                        if(id == i.getId()) {
+                            i.setStatus(EstadoSolicitud.APROBADA);
+                            System.out.println("\nSolicitud aprobada");
+                            band2 = true;
+                            return;
+                        }
+                    }
+                    if(!band2) {
+                        System.out.println("\nEste ID no pertenece a ninguna solicitud en proceso, por favor ingrese un ID válido");
+                    }
                 }
-            }
-            if(!band2) {
-                System.out.println("\nEste ID no pertenece a ninguna solicitud en proceso, por favor ingrese un ID válido");
-            }
-        }
-        else if (decision == 2) {
-            System.out.print("\nIngrese el ID de la solicitud que desea rechazar: ");
-            id = scanner.nextInt();
-            for(Solicitud i : solicitudesPendientes) {
-                if(id == i.getId()) {
-                    i.setStatus(EstadoSolicitud.RECHAZADA);
-                    System.out.println("\nSolicitud rechazada");
-                    band2 = true;
-                    return;
-                }
-            }
-            if(!band2) {
-                System.out.println("\nEste ID no pertenece a ninguna solicitud en proceso, por favor ingrese un ID válido");
-            }
+                else if (decision == 2) {
+                    System.out.print("\nIngrese el ID de la solicitud que desea rechazar: ");
+                    id = scanner.nextInt();
+                    for(Solicitud i : solicitudesPendientes) {
+                        if(id == i.getId()) {
+                            i.setStatus(EstadoSolicitud.RECHAZADA);
+                            System.out.println("\nSolicitud rechazada");
+                            band2 = true;
+                            return;
+                        }
+                    }
+                    if(!band2) {
+                        System.out.println("\nEste ID no pertenece a ninguna solicitud en proceso, por favor ingrese un ID válido");
+                    }
 
-            //ELIMINAR SOLICITUDES DEL ARRAY
-       
+                    //ELIMINAR SOLICITUDES DEL ARRAY
+            
+                }
+                else {
+                    System.out.println("\nPor favor ingrese una opción válida");
+                    band = false;
+                }
+            }
+            while(!band);
         }
         else {
-            System.out.println("\nPor favor ingrese una opción válida");
-            band = false;
+            System.out.println("\nNo hay solicitudes registradas todavía");
         }
-        }
-        while(!band);
     }
 }
 

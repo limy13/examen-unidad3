@@ -6,8 +6,6 @@ import Usuarios.Empleados.Ejecutivo;
 import Usuarios.Inversionista;
 import Usuarios.Usuario;
 import utils.UsuarioEnSesion;
-
-import java.lang.annotation.Target;
 import java.util.Scanner;
 
 public class Menu {
