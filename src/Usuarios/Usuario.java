@@ -1,5 +1,9 @@
 package Usuarios;
 import Usuarios.utils.Rol;
+
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -55,41 +59,19 @@ public class Usuario {
         System.out.println("\nIngresa los siguientes datos para continuar con el registro: ");
         System.out.print("\nNombre: ");
         String nombre = scanner.nextLine();
-        System.out.print("Apellido: ");
-        //validar que sean 2 apellidos
-        String apellido = scanner.nextLine();
+        System.out.print("Apellido paterno: ");
+        String apellidoP = scanner.nextLine();
+        System.out.print("Apellido materno: ");
+        String apellidoM = scanner.nextLine();
+
         System.out.print("Fecha de nacimiento: ");
-        int dia, mes, año;
-        boolean band = false;
-        String fechaActual = String.valueOf(LocalDate.now());
-        String [] partes = fechaActual.split("-");
-        do {
-            System.out.print("\nAño: ");
-            año = scanner.nextInt();
-            
-            if (año > Integer.parseInt(partes[0])) {
-                System.out.println("\nIngrese un año valido");
-            }
-            else{
-                band = true;
-            }
-        }
-        while(!band);
-        band = false;
-        do {
-            System.out.print("Mes: ");
-            mes = scanner.nextInt();
-            if (mes > 12 || mes < 1) {
-                System.out.println("\nIngrese un mes valido");
-            }
-            else {
-                band = true;
-            }
-        }
-        while (!band);
-        //validar dia
+        //String fechaNacimientoString = validarFecha();
+        System.out.print("\nAño: ");
+        int año = scanner.nextInt();
+        System.out.print("Mes: ");
+        int mes = scanner.nextInt();
         System.out.print("Día: ");
-        dia = scanner.nextInt();
+        int dia = scanner.nextInt();
         LocalDate fechaNacimiento = LocalDate.of(año, mes, dia);
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/YYYY"); 
         String fechaFormateada = fechaNacimiento.format(pattern);
@@ -103,12 +85,42 @@ public class Usuario {
         System.out.print("CURP: ");
         String curp = scanner.nextLine();
         String nombreUsuario = registrarNombreUsuario();
-        String rfc = generarRfc(fechaFormateada, nombre, apellido);
+        String rfc = generarRfc(fechaFormateada, nombre, apellidoP.concat(" ").concat(apellidoM));
         System.out.print("Contraseña: ");
         String contraseña = scanner.nextLine();
 
-        datosComun.addAll(Arrays.asList(nombre, apellido, fechaFormateada, estado, ciudad, direccion, curp.toUpperCase(), nombreUsuario, contraseña, rfc, Banco.sucu));
+        datosComun.addAll(Arrays.asList(nombre, apellidoP.concat(" ").concat(apellidoM), fechaFormateada, estado, ciudad, direccion, curp.toUpperCase(), nombreUsuario, contraseña, rfc, Banco.sucu));
         return datosComun;
+    }
+
+
+    public static String validarFecha() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingresa una fecha con formato yyyy-MM-dd:");
+        String fechaIngresada = scanner.nextLine();
+
+        // Formateador de fecha para analizar la fecha ingresada
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            // Convertir la fecha ingresada a un objeto Date
+            Date fechaIngresadaDate = sdf.parse(fechaIngresada);
+
+            // Obtener la fecha actual
+            Date fechaActual = new Date();
+
+            // Comparar la fecha ingresada con la fecha actual
+            if (fechaIngresadaDate.before(fechaActual) || fechaIngresadaDate.equals(fechaActual)) {
+                // La fecha ingresada es válida
+                return sdf.format(fechaIngresadaDate); // Devolver la fecha formateada como cadena
+            } else {
+                // La fecha ingresada aún no sucede
+                return "\nLa fecha ingresada aun no sucede";
+            }
+        } catch (ParseException e) {
+            // Error al analizar la fecha ingresada
+            return "\nError: Formato de fecha incorrecto.";
+        }
     }
 
     
@@ -117,16 +129,18 @@ public class Usuario {
         String nombreUsuario = "";
         boolean nombreUsuarioExistente = true;
         //cambiar a que no haya usuaris repetidos en las 2 sucurslaes
-        Map<Rol, ArrayList<Usuario>> lista = Banco.sucursal.get(Banco.sucu);
+        //Map<Rol, ArrayList<Usuario>> lista = Banco.sucursal.get(Banco.sucu);
         do {
             System.out.print("\nIngresa el nombre de usuario: ");
             nombreUsuario = scanner.nextLine();
             nombreUsuarioExistente = false;
-            for(ArrayList<Usuario> usuarios : lista.values()) {
-                for(Usuario usuario : usuarios) {
-                    if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                        nombreUsuarioExistente = true;
-                        break;
+            for(Map<Rol, ArrayList<Usuario>> lista : Banco.sucursal.values()) {
+                for(ArrayList<Usuario> usuarios : lista.values()) {
+                    for(Usuario usuario : usuarios) {
+                        if(usuario.getNombreUsuario().equals(nombreUsuario)) {
+                            nombreUsuarioExistente = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -151,6 +165,58 @@ public class Usuario {
         String [] partesApellido = apellido.split(" ");
         return rfc = ("" + apellido.charAt(0) + apellido.charAt(1) + partesApellido[1].charAt(0) + nombre.charAt(0) +
         partesNacimiento[2].charAt(2) + partesNacimiento[2].charAt(3) + partesNacimiento[1] + partesNacimiento[0] + homoclave).toUpperCase();
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setRfc(String fechaNacimiento, String nombre, String apellidos) {
+        this.rfc = generarRfc(fechaNacimiento, nombre, apellidos);
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public void setCurp(String curp) {
+        this.curp = curp;
+    }
+
+    public void setDirecccion(String direcccion) {
+        this.direcccion = direcccion;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getData() {

@@ -7,6 +7,7 @@ import java.util.*;
 public class Banco {
 
     public static final Map<String, Map<Rol, ArrayList<Usuario>>> sucursal = new HashMap<>(); //hashmaps que contiene los usuarios de las 2 sucursales
+    public static final ArrayList<String> inversionesRealizadas = new ArrayList<>();
     private String usuarioEnSesion;
     public static String sucu;
 

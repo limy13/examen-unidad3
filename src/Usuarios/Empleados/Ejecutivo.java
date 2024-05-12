@@ -16,7 +16,7 @@ public class Ejecutivo extends Usuario {
 
     @Override
     public String getData() {
-        return String.format(super.getData() + "\nSalario: %.2f" + salario);
+        return String.format(super.getData() + "\nSalario: %.2f", salario);
     }
 
     public static void registrarEjecutivo() {

@@ -1,5 +1,4 @@
 package utils;
-
 import Usuarios.Usuario;
 
 public class UsuarioEnSesion {

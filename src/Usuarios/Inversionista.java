@@ -1,11 +1,13 @@
 package Usuarios;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import Sucursal.Banco;
 import Usuarios.utils.Rol;
 
 public class Inversionista extends Usuario{
+
+    private ArrayList<String> inversionesRealizadas = new ArrayList<>();
 
     public Inversionista(String sucursal, String direcccion, String curp, String estado, String ciudad, String fechaNacimiento, String apellidos, String nombre, String nombreUsuario, String contraseña, String rfc) {
         super(sucursal, direcccion, curp, estado, ciudad, fechaNacimiento, apellidos, nombre, nombreUsuario, contraseña, Rol.INVERSIONISTA, rfc);
@@ -97,6 +99,24 @@ public class Inversionista extends Usuario{
         if(!band) {
             System.out.println("\nEste nombre de usuario no pertenece a ningún inversionista");
         }
+    }
+
+    public void mostrarInversionesRealizadas() {
+        System.out.println("\n---- Inversiones realizadas ----\n");
+        int x = 1;
+        for(String i : inversionesRealizadas) {
+            System.out.println("**** Inversión " + x + " ****");
+            System.out.println(i);
+        }
+    }
+
+    public void realizarInversion(Inversionista inversionista) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n---- Inversiones ----\n");
+        System.out.print("Ingrese la cantidad que desea invertir: ");
+        double cantidad = scanner.nextDouble();
+        inversionesRealizadas.add(String.format("\nCantidad aportada: %.2f", cantidad + "\nFecha del movimiento: " + LocalDate.now()));
+        Banco.inversionesRealizadas.add(String.format("Nombre del inversionista: %s %s \nCantidad aportada: %.2f", inversionista.getNombre(), inversionista.getApellidos(), cantidad + "\nSucursal: " + Banco.sucu + "\nFecha del movimiento: " + LocalDate.now())); 
     }
 
 }
