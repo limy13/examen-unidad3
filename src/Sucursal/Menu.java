@@ -66,7 +66,7 @@ public class Menu {
             System.out.println("\n---- BIENVENIDO CLIENTE ----\n");
             System.out.println(usuario.getNombreUsuario());
             System.out.println("\n1. Pagar compra con tarjeta de crédito");
-            System.out.println("2. Pagar tarjeta de crédito");
+            System.out.println("2. Pagar tarjetas de crédito");
             System.out.println("3. Mostrar información de tarjetas");
             System.out.println("4. Depositar cantidad de tarjeta de débito");
             System.out.println("5. Retirar cantidad de tarjeta de débito");
@@ -87,6 +87,7 @@ public class Menu {
             switch(decision) {
 
                 case 1:
+                    cliente.pagarCompra();
                     break;
 
                 case 2:
@@ -418,7 +419,6 @@ public class Menu {
 
             switch(decision) {
                 case 1:
-                //probar
                     inversionista.realizarInversion(inversionista);
                     break;
 

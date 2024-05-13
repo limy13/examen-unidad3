@@ -389,17 +389,17 @@ public class Cliente extends Usuario {
                     if(opcion.equalsIgnoreCase("s") && tarjetaS != null) {
                         System.out.println("\nIngrese la cantidad que desea pagar: ");
                         cantidad = scanner.nextDouble();
-                        tarjetaS.setSaldo(cantidad); 
+                        tarjetaS.setSaldo(tarjetaS.getSaldo() + cantidad); 
                     }
                     else if(opcion.equalsIgnoreCase("p") && tarjetaP != null) {
                         System.out.println("\nIngrese la cantidad que desea pagar: ");
                         cantidad = scanner.nextDouble();
-                        tarjetaP.setSaldo(cantidad);
+                        tarjetaP.setSaldo(tarjetaP.getSaldo() + cantidad);
                     }
                     else if(opcion.equalsIgnoreCase("o") && tarjetaO != null) {
                         System.out.println("\nIngrese la cantidad que desea pagar: ");
                         cantidad = scanner.nextDouble();
-                        tarjetaO.setSaldo(cantidad);
+                        tarjetaO.setSaldo(tarjetaO.getSaldo() + cantidad);
                     }
                     else {
                         System.out.println("\nNo posees esta tarjeta");
@@ -425,6 +425,88 @@ public class Cliente extends Usuario {
         }
         if(tarjetaO != null) {
             tarjetaO.mostrarDatosTarjeta();
+        }
+    }
+
+    public void pagarCompra() {
+        Scanner scanner = new Scanner(System.in);
+        boolean band = false;
+        String opcion;
+        double cantidad;
+        if(tarjetaS == null && tarjetaP == null && tarjetaO == null) {
+            System.out.println("\nNo posees ninguna tarjeta de crédito todavía");
+        }
+        else {
+            System.out.println("\n---- Pagar con tarjeta de crédito ----\n");
+            do {
+                System.out.println("¿Con que tarjeta desea pagar? (S = simplicity, P = platino, O = Oro): ");
+                opcion = scanner.nextLine();
+                if(opcion.equalsIgnoreCase("s") || opcion.equalsIgnoreCase("p") || opcion.equalsIgnoreCase("o")) {
+                    if(opcion.equalsIgnoreCase("s") && tarjetaS != null) {
+                        System.out.println("\n---- Tarjeta simplicity ----\n");
+                        System.out.println("Saldo actual: " + tarjetaS.getSaldo());
+                        do {
+                            System.out.println("\nIngrese la cantidad que desea pagar: ");
+                            cantidad = scanner.nextDouble();
+                            if(cantidad > tarjetaS.getSaldo()) {
+                                System.out.println("\nLa cantidad a pagar sobrepasa el saldo actual en su tarjeta, por favor ingrese una cantidad válida");
+                            }
+                            else {
+                                tarjetaS.setSaldo(tarjetaS.getSaldo() - cantidad);
+                                band = true;
+                                System.out.println("\nSe ha retirado " + cantidad + " MX de su tarjeta");
+                                tarjetaS.setFechaUltimoMovimiento();
+                            }
+                        }
+                        while(!band);
+                    }
+                    else if(opcion.equalsIgnoreCase("p") && tarjetaP != null) {
+                        System.out.println("\n---- Tarjeta platino ----\n");
+                        System.out.println("Saldo actual: " + tarjetaP.getSaldo());
+                        do {
+                            System.out.println("\nIngrese la cantidad que desea pagar: ");
+                            cantidad = scanner.nextDouble();
+                            if(cantidad > tarjetaP.getSaldo()) {
+                                System.out.println("\nLa cantidad a pagar sobrepasa el saldo actual en su tarjeta, por favor ingrese una cantidad válida");
+                            }
+                            else {
+                                tarjetaP.setSaldo(tarjetaP.getSaldo() - cantidad);
+                                band = true;
+                                System.out.println("\nSe ha retirado " + cantidad + " MX de su tarjeta");
+                                tarjetaP.setFechaUltimoMovimiento();
+                            }
+                        }
+                        while(!band);
+                    }
+                    else if(opcion.equalsIgnoreCase("o") && tarjetaO != null) {
+                        System.out.println("\n---- Tarjeta oro ----\n");
+                        System.out.println("Saldo actual: " + tarjetaO.getSaldo());
+                        do {
+                            System.out.println("\nIngrese la cantidad que desea pagar: ");
+                            cantidad = scanner.nextDouble();
+                            if(cantidad > tarjetaO.getSaldo()) {
+                                System.out.println("\nLa cantidad a pagar sobrepasa el saldo actual en su tarjeta, por favor ingrese una cantidad válida");
+                            }
+                            else {
+                                tarjetaO.setSaldo(tarjetaO.getSaldo() - cantidad);
+                                band = true;
+                                System.out.println("\nSe ha retirado " + cantidad + " MX de su tarjeta");
+                                tarjetaO.setFechaUltimoMovimiento();
+                            }
+                        }
+                        while(!band);
+                    }
+                    else {
+                        System.out.println("\nNo posees esta tarjeta");
+                        band = false;
+                    } 
+                }
+                else {
+                    System.out.println("\nIngrese una opción válida");
+                    band = false;
+                }
+            }   
+            while (!band);
         }
     }
 }

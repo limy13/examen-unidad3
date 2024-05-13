@@ -39,8 +39,9 @@ public class Tarjeta {
     }
 
     public void setSaldo(double cantidad) {
-        this.saldo += cantidad;
+        this.saldo = cantidad;
     }
+
 
     public void setFechaUltimoMovimiento() {
         fechaUltimoMovimiento = formatoFechaUltimoMovimiento();
@@ -92,7 +93,7 @@ public class Tarjeta {
     public void retirar() {
         boolean band = false; 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\n---- Depositar ----\n");
+        System.out.println("\n---- Retirar ----\n");
         System.out.println("Saldo actual: " + saldo);
         System.out.println("\nIngrese la cantidad que desea retirar: ");
         double cantidad = scanner.nextDouble();

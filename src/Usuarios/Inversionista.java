@@ -260,8 +260,6 @@ public class Inversionista extends Usuario{
     }
 
 
-
-
     public void realizarInversion(Inversionista inversionista) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n---- Inversiones ----\n");
