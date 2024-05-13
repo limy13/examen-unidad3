@@ -163,7 +163,6 @@ public class Cliente extends Usuario {
                 if(tarjetaO != null) {
                     tarjetaO.mostrarDatosTarjeta();
                 }
-                //imprimir dtos tarjeta
                 x++;
             }
         }
@@ -268,7 +267,7 @@ public class Cliente extends Usuario {
                         case 2:
                             System.out.print("Apellido paterno: ");
                             String paterno = scanner.nextLine();
-                            System.out.println("Apellido materno: ");
+                            System.out.print("Apellido materno: ");
                             String materno = scanner.nextLine();
                             cliente.setApellidos(paterno.concat(" ").concat(materno));
                             break;
@@ -383,21 +382,21 @@ public class Cliente extends Usuario {
         else {
             System.out.println("\n---- Pagar tarjeta de crédito ----\n");
             do {
-                System.out.println("¿Qué tarjeta desea pagar? (S = simplicity, P = platino, O = Oro): ");
+                System.out.print("¿Qué tarjeta desea pagar? (S = simplicity, P = platino, O = Oro): ");
                 opcion = scanner.nextLine();
                 if(opcion.equalsIgnoreCase("s") || opcion.equalsIgnoreCase("p") || opcion.equalsIgnoreCase("o")) {
                     if(opcion.equalsIgnoreCase("s") && tarjetaS != null) {
-                        System.out.println("\nIngrese la cantidad que desea pagar: ");
+                        System.out.print("\nIngrese la cantidad que desea pagar: ");
                         cantidad = scanner.nextDouble();
                         tarjetaS.setSaldo(tarjetaS.getSaldo() + cantidad); 
                     }
                     else if(opcion.equalsIgnoreCase("p") && tarjetaP != null) {
-                        System.out.println("\nIngrese la cantidad que desea pagar: ");
+                        System.out.print("\nIngrese la cantidad que desea pagar: ");
                         cantidad = scanner.nextDouble();
                         tarjetaP.setSaldo(tarjetaP.getSaldo() + cantidad);
                     }
                     else if(opcion.equalsIgnoreCase("o") && tarjetaO != null) {
-                        System.out.println("\nIngrese la cantidad que desea pagar: ");
+                        System.out.print("\nIngrese la cantidad que desea pagar: ");
                         cantidad = scanner.nextDouble();
                         tarjetaO.setSaldo(tarjetaO.getSaldo() + cantidad);
                     }
@@ -439,14 +438,14 @@ public class Cliente extends Usuario {
         else {
             System.out.println("\n---- Pagar con tarjeta de crédito ----\n");
             do {
-                System.out.println("¿Con que tarjeta desea pagar? (S = simplicity, P = platino, O = Oro): ");
+                System.out.print("¿Con que tarjeta desea pagar? (S = simplicity, P = platino, O = Oro): ");
                 opcion = scanner.nextLine();
                 if(opcion.equalsIgnoreCase("s") || opcion.equalsIgnoreCase("p") || opcion.equalsIgnoreCase("o")) {
                     if(opcion.equalsIgnoreCase("s") && tarjetaS != null) {
                         System.out.println("\n---- Tarjeta simplicity ----\n");
                         System.out.println("Saldo actual: " + tarjetaS.getSaldo());
                         do {
-                            System.out.println("\nIngrese la cantidad que desea pagar: ");
+                            System.out.print("\nIngrese la cantidad que desea pagar: ");
                             cantidad = scanner.nextDouble();
                             if(cantidad > tarjetaS.getSaldo()) {
                                 System.out.println("\nLa cantidad a pagar sobrepasa el saldo actual en su tarjeta, por favor ingrese una cantidad válida");
@@ -464,7 +463,7 @@ public class Cliente extends Usuario {
                         System.out.println("\n---- Tarjeta platino ----\n");
                         System.out.println("Saldo actual: " + tarjetaP.getSaldo());
                         do {
-                            System.out.println("\nIngrese la cantidad que desea pagar: ");
+                            System.out.print("\nIngrese la cantidad que desea pagar: ");
                             cantidad = scanner.nextDouble();
                             if(cantidad > tarjetaP.getSaldo()) {
                                 System.out.println("\nLa cantidad a pagar sobrepasa el saldo actual en su tarjeta, por favor ingrese una cantidad válida");
@@ -482,7 +481,7 @@ public class Cliente extends Usuario {
                         System.out.println("\n---- Tarjeta oro ----\n");
                         System.out.println("Saldo actual: " + tarjetaO.getSaldo());
                         do {
-                            System.out.println("\nIngrese la cantidad que desea pagar: ");
+                            System.out.print("\nIngrese la cantidad que desea pagar: ");
                             cantidad = scanner.nextDouble();
                             if(cantidad > tarjetaO.getSaldo()) {
                                 System.out.println("\nLa cantidad a pagar sobrepasa el saldo actual en su tarjeta, por favor ingrese una cantidad válida");
