@@ -17,8 +17,6 @@ public class Tarjeta {
     private String numeroTarjeta, numeroCuenta = "";
     private DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd-MM-YYYY"); 
     private TiposTarjeta tipo;
-    private static int CANTIDAD_SOLICITUDES = 1;
-    private int id;
 
     public Tarjeta(double saldo, TiposTarjeta tipo) {
         this.saldo = saldo;
@@ -29,8 +27,6 @@ public class Tarjeta {
         this.clabe = generarClabe();
         this.numeroTarjeta = generarNumeroTarjeta();
         this.tipo = tipo;
-        this.id = CANTIDAD_SOLICITUDES;
-        CANTIDAD_SOLICITUDES++;
     }
 
     private String formatoFechaVencimiento() {
@@ -123,53 +119,6 @@ public class Tarjeta {
         this.saldo += cantidad;
         System.out.println("\nSe ha depositado " + cantidad + " a su tarjeta");
         setFechaUltimoMovimiento();
-    }
-
-    public void verifiacionDeSaldo() {
-        Scanner scanner = new Scanner(System.in);
-        int opcion;
-        if (saldo > 200000 && saldo <= 400000){
-            //solicitar oro
-            System.out.println("\n¿Desea solicitar Tarjeta Oro? (1 = si, 2 = no): ");
-            try{
-            opcion= scanner.nextInt();
-                if (opcion == 1){
-                    //Solicitud solicitud = new Solicitud(idSoli, "Juan", "Pérez", saldo, TiposTarjeta.ORO);
-                    // Agregar la solicitud al arreglo de solicitudes pendientes
-                    //Solicitud.agregarSolicitud(solicitud);}
-            }
-        }catch (Exception e){
-                System.out.println("\nIngrese un número: ");
-            }
-            }
-
-
-        else if (saldo > 100000 && saldo <=150000) {
-            System.out.println("\n¿Desea solicitar Tarjeta Platino? (1 = si, 2 = no): ");
-            try{
-                opcion= scanner.nextInt();
-                if (opcion == 1){
-                    //Solicitud solicitud = new Solicitud(idSolicitud, "Juan", "Pérez", saldo, TiposTarjeta.PLATINO);
-                    // Agregar la solicitud al arreglo de solicitudes pendientes
-                    //Solicitud.agregarSolicitud(solicitud);}
-            } 
-        }catch (Exception e){
-                System.out.println("\nIngrese un número: ");
-            }
-            
-        } else if (saldo > 50000 && saldo < 60000) {
-            System.out.print("\n¿Desea solicitar Tarjeta Simplicity? (1 = si, 2 = no): ");
-            try{
-                opcion= scanner.nextInt();
-                if (opcion == 1){
-                    //Solicitud solicitud = new Solicitud(idSolicitud, "Juan", "Pérez", saldo, TiposTarjeta.SIMPLICITY);
-                    // Agregar la solicitud al arreglo de solicitudes pendientes
-                    //Solicitud.agregarSolicitud(solicitud);}
-            }
-        }catch (Exception e){
-                System.out.print("\nIngrese un número: ");
-            }
-        }
     }
 
     public void mostrarDatosTarjeta() {

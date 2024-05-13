@@ -110,6 +110,158 @@ public class Inversionista extends Usuario{
         }
     }
 
+    public static void modificarInversionista() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n---- Modificar Inversionista ----\n");
+
+        if (Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA).isEmpty()) {
+            System.out.println("No hay inversionistas registrados.");
+            return;
+        }
+
+        System.out.print("Ingrese el nombre de usuario del inversionistas que desea modificar: ");
+        String nombreUsuario = scanner.nextLine();
+
+        boolean continuarModificacion;
+
+        do {
+            continuarModificacion = false;
+
+            for (Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA)) {
+                if (usuario.getNombreUsuario().equals(nombreUsuario)) {
+                    Inversionista inversionista = (Inversionista) usuario;
+                    System.out.println("\nSeleccione qué desea modificar:");
+                    System.out.println("1. Nombre");
+                    System.out.println("2. Apellidos");
+                    System.out.println("3. Fecha de nacimiento");
+                    System.out.println("4. Dirección");
+                    System.out.println("5. Estado");
+                    System.out.println("6. Ciudad");
+                    System.out.println("7. CURP");
+                    System.out.println("8. Usuario ");
+                    System.out.println("9. Contraseña");
+                    System.out.println("10. Terminar modificación");
+                    System.out.print("\nIngrese opción: ");
+                    int opcion = scanner.nextInt();
+                    scanner.nextLine(); // limpiamos el scanner para que no se buguee
+
+                    switch (opcion) {
+                        case 1:
+                            System.out.print("Ingrese el nuevo nombre: ");
+                            String nuevoNombre = scanner.nextLine();
+                            inversionista.setNombre(nuevoNombre);
+                            break;
+
+                        case 2:
+                            System.out.print("Apellido paterno: ");
+                            String paterno = scanner.nextLine();
+                            System.out.println("Apellido materno: ");
+                            String materno = scanner.nextLine();
+                            inversionista.setApellidos(paterno.concat(" ").concat(materno));
+                            break;
+
+                        case 3:
+                            boolean fechaValida = false;
+                            LocalDate nuevaFechaNacimiento = null;
+                            int dia = 0, mes = 0, año = 0;
+                            do {
+                                try {
+                                    System.out.print("Ingrese el día de nacimiento: ");
+                                    dia = scanner.nextInt();
+                                    System.out.print("Ingrese el mes de nacimiento: ");
+                                    mes = scanner.nextInt();
+                                    System.out.print("Ingrese el año de nacimiento: ");
+                                    año = scanner.nextInt();
+
+                                    nuevaFechaNacimiento = LocalDate.of(año, mes, dia);
+
+                                    // Validaciones
+                                    if (nuevaFechaNacimiento.isAfter(LocalDate.now())) {
+                                        System.out.println("La fecha de nacimiento no puede ser en el futuro.");
+                                    } else if (mes > 12 || dia > 31) {
+                                        System.out.println("Fecha de nacimiento no válida.");
+                                    } else if (mes == 2 && dia > 28) {
+                                        System.out.println("En febrero sólo hay 28 días.");
+                                    } else {
+                                        fechaValida = true;
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("Formato de fecha incorrecto o fuera de rango. Por favor, ingrese una fecha válida.");
+                                    scanner.nextLine(); // Limpiar el buffer del scanner
+                                }
+                            } while (!fechaValida);
+
+                            inversionista.setFechaNacimiento(String.format("%d/%d/%d", año, mes, dia)); // Aquí se establece la fecha de nacimiento
+                            scanner.nextLine(); // Limpiar el buffer del scanner después de leer enter
+                            break;
+
+                        case 4:
+                            System.out.print("Ingrese nueva dirección: ");
+                            String nuevaDireccion = scanner.nextLine();
+                            inversionista.setDirecccion(nuevaDireccion);
+                            break;
+
+                        case 5:
+                            System.out.print("Ingrese nuevo estado: ");
+                            String nuevoEstado = scanner.nextLine();
+                            inversionista.setEstado(nuevoEstado);
+                            break;
+
+                        case 6:
+                            System.out.print("Ingrese nueva ciudad: ");
+                            String nuevaCiudad = scanner.nextLine();
+                            inversionista.setCiudad(nuevaCiudad);
+                            break;
+
+                        case 7:
+                            System.out.print("Ingrese la nueva CURP: ");
+                            String nuevaCURP = scanner.nextLine();
+                            inversionista.setCurp(nuevaCURP);
+                            break;
+
+                        case 8:
+                            System.out.print("Ingresa nuevo nombre de usuario: ");
+                            String nuevoNombreUsuario = scanner.nextLine();
+                            inversionista.setNombreUsuario(nuevoNombreUsuario);
+                            break;
+
+                        case 9:
+                            System.out.print("Ingrese nueva contraseña: ");
+                            String nuevaContraseña = scanner.nextLine();
+                            inversionista.setContraseña(nuevaContraseña);
+                            break;
+
+                        case 10:
+                            return;
+
+                        default:
+                            System.out.println("Opción no válida.");
+                    }
+
+                    inversionista.setRfc(inversionista.getFechaNacimiento(), inversionista.getNombre(), inversionista.getApellidos());
+
+                    System.out.println("\nDatos modificados exitosamente:");
+                    System.out.println(inversionista.getData());
+
+                    continuarModificacion = true;
+                    break; // esto sirve para  salir del bucle para volver a preguntar si se desea continuar la modificación
+                }
+            }
+
+            if (!continuarModificacion) {
+                System.out.println("No se encontró ningún cliente con ese nombre de usuario.");
+                return; // Salir si no se encontró ningún cliente
+            }
+
+            System.out.print("¿Desea seguir modificando datos? (s/n): ");
+            char respuesta = scanner.next().charAt(0);
+            continuarModificacion = (respuesta == 's' || respuesta == 'S');
+        } while (continuarModificacion);
+    }
+
+
+
+
     public void realizarInversion(Inversionista inversionista) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n---- Inversiones ----\n");

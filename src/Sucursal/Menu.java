@@ -1,6 +1,7 @@
 package Sucursal;
 import Usuarios.Clientes.Cliente;
 import Usuarios.Clientes.Tarjetas.Solicitud;
+import Usuarios.Clientes.Tarjetas.utils.TiposTarjeta;
 import Usuarios.Empleados.Capturista;
 import Usuarios.Empleados.Ejecutivo;
 import Usuarios.Inversionista;
@@ -58,27 +59,26 @@ public class Menu {
 
 
     private void menuCliente(Usuario usuario) {
+        Solicitud solicitud;
         Cliente cliente = (Cliente) usuario;
         do {
-            System.out.println("\n\n---- BIENVENIDO CLIENTE ----\n");
+            System.out.println("\n****************************************");
+            System.out.println("\n---- BIENVENIDO CLIENTE ----\n");
             System.out.println(usuario.getNombreUsuario());
             System.out.println("\n1. Pagar compra con tarjeta de crédito");
             System.out.println("2. Pagar tarjeta de crédito");
             System.out.println("3. Mostrar información de tarjetas");
             System.out.println("4. Depositar cantidad de tarjeta de débito");
             System.out.println("5. Retirar cantidad de tarjeta de débito");
-            if(cliente.getTarjetaDebito().getSaldo() > 50000 && cliente.getTarjetaSimplicity() == null) {
+            if(cliente.getTarjetaDebito().getSaldo() > 50000 && cliente.getTarjetaSimplicity() == null && !cliente.getSolicitudes()) {
                 System.out.println("6. Solicitar tarjeta simplicity");
             }
-            if(cliente.getTarjetaDebito().getSaldo() > 100000 && cliente.getTarjetaPlatino() == null) {
+            if(cliente.getTarjetaDebito().getSaldo() > 100000 && cliente.getTarjetaPlatino() == null && !cliente.getSolicitudes()) {
                 System.out.println("7. Solicitar tarjeta platino");
             }
-            if(cliente.getTarjetaDebito().getSaldo() > 200000 && cliente.getTarjetaOro() == null) {
+            if(cliente.getTarjetaDebito().getSaldo() > 200000 && cliente.getTarjetaOro() == null && !cliente.getSolicitudes()) {
                 System.out.println("8. Solicitar tarjeta oro");
             }
-
-            //agregar opciones para solicitud y ver status de solicitud
-
             System.out.println("9. Mostrar estatus de solicitudes de tarjetas de crédito");
             System.out.println("10. Cerrar sesión");
             System.out.print("\nIngrese opción: ");
@@ -106,15 +106,28 @@ public class Menu {
                     break;
 
                 case 6:
+                    solicitud = new Solicitud(cliente, TiposTarjeta.SIMPLICITY);
+                    Solicitud.solicitudesPendientes.add(solicitud);
+                    cliente.agregarSolicitud(solicitud);
+                    cliente.setSolicitudes(true);
                     break;
 
                 case 7:
+                    solicitud = new Solicitud(cliente, TiposTarjeta.PLATINO);
+                    Solicitud.solicitudesPendientes.add(solicitud);
+                    cliente.agregarSolicitud(solicitud);
+                    cliente.setSolicitudes(true);
                     break;
 
                 case 8:
+                    solicitud = new Solicitud(cliente, TiposTarjeta.ORO);
+                    Solicitud.solicitudesPendientes.add(solicitud);
+                    cliente.agregarSolicitud(solicitud);
+                    cliente.setSolicitudes(true);
                     break;
 
                 case 9:
+                    cliente.mostrarSolicitudesPendientes();
                     break;
 
                 case 10:
@@ -131,7 +144,8 @@ public class Menu {
 
     private void menuEjecutivo(String usuario) {
         do {
-            System.out.println("\n\n---- BIENVENIDO EJECUTIVO ----\n");
+            System.out.println("\n****************************************");
+            System.out.println("\n---- BIENVENIDO EJECUTIVO ----\n");
             System.out.println(usuario);
             System.out.println("\n1. Registrar cliente");
             System.out.println("2. Consultar cliente");
@@ -177,7 +191,8 @@ public class Menu {
 
     private void menuGerente(String usuario) {
         do {
-            System.out.println("\n\n---- BIENVENIDO GERENTE----\n");
+            System.out.println("\n****************************************");
+            System.out.println("\n---- BIENVENIDO GERENTE----\n");
             System.out.println(usuario);
             System.out.println("\n1. Registrar cliente");
             System.out.println("2. Consultar cliente");
@@ -231,6 +246,7 @@ public class Menu {
                     break;
 
                 case 8:
+                    Ejecutivo.modificarEjecutivo();
                     break;
 
                 case 9:
@@ -246,6 +262,7 @@ public class Menu {
                     break;
 
                 case 12:
+                    Capturista.modificarCapturista();
                     break;
 
                 case 13:
@@ -289,7 +306,7 @@ public class Menu {
                         System.out.print("\nIngrese la contraseña para poder acceder a esta función: ");
                         cadena = scanner.nextLine();
                         if(cadena.equals(contraseña)) {
-                            //metodo para modficiar
+                            Inversionista.modificarInversionista();
                             band = true;
                         }
                         else {
@@ -346,7 +363,8 @@ public class Menu {
 
     private void menuCapturista(String usuario) {
         do {
-            System.out.println("\n\n---- BIENVENIDO CAPTURISTA ----\n");
+            System.out.println("\n****************************************");
+            System.out.println("\n---- BIENVENIDO CAPTURISTA ----\n");
             System.out.println(usuario);
             System.out.println("\n1. Registrar ejecutivo de cuenta");
             System.out.println("2. Consultar ejecutivo de cuenta");
@@ -366,6 +384,7 @@ public class Menu {
                     break;
 
                 case 3:
+                    Ejecutivo.modificarEjecutivo();
                     break;
 
                 case 4:
@@ -388,7 +407,8 @@ public class Menu {
     private void menuInversionista(Usuario usuario) {
         Inversionista inversionista = (Inversionista) usuario;
         do {
-            System.out.println("\n\n---- BIENVENIDO INVERSIONISTA ----\n");
+            System.out.println("\n****************************************");
+            System.out.println("\n---- BIENVENIDO INVERSIONISTA ----\n");
             System.out.println(inversionista.getNombreUsuario());
             System.out.println("\n1. Proveer fondos");
             System.out.println("2. Mostrar inversiones realizadas");
@@ -398,6 +418,7 @@ public class Menu {
 
             switch(decision) {
                 case 1:
+                //probar
                     inversionista.realizarInversion(inversionista);
                     break;
 

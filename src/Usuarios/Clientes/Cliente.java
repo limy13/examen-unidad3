@@ -1,16 +1,20 @@
 package Usuarios.Clientes;
 import Sucursal.Banco;
 import Usuarios.Usuario;
+import Usuarios.Clientes.Tarjetas.Solicitud;
 import Usuarios.Clientes.Tarjetas.Tarjeta;
 import Usuarios.Clientes.Tarjetas.utils.TiposTarjeta;
 import Usuarios.utils.Rol;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cliente extends Usuario {
 
+    private ArrayList<Solicitud> solicitudesPendientes = new ArrayList<>();
     private static int CANTIDAD_CLIENTES = 1;
     private int id;
+    private boolean solicitudes = false;
     private static Tarjeta tarjetaD, tarjetaS, tarjetaO, tarjetaP;
 
     public Cliente(String sucursal, String direcccion, String curp, String estado, String ciudad, String fechaNacimiento, String apellidos, String nombre, String nombreUsuario, String contraseña, String rfc, Tarjeta tarjeta) {
@@ -20,8 +24,51 @@ public class Cliente extends Usuario {
         CANTIDAD_CLIENTES++;
     }
 
-    private int getId() {
+    public boolean getSolicitudes() {
+        return solicitudes;
+    }
+
+    public void setSolicitudes(boolean band) {
+        solicitudes = band;
+    }
+
+    public void agregarSolicitud(Solicitud solicitud) {
+        solicitudesPendientes.add(solicitud);
+    }
+
+    public void mostrarSolicitudesPendientes() {
+        int x = 1;
+        if(!solicitudesPendientes.isEmpty()) {
+            System.out.println("\n**** Solicitudes pendientes ****");
+            for(Solicitud solicitud : solicitudesPendientes) {
+                System.out.println("\n---- Solicitud " + x + "----");
+                System.out.println(solicitud.getData());
+                x++;
+            }
+        }
+        else {
+            System.out.println("\nNo hay solicitudes pendientes por aprobar todavía");
+        }
+    }
+
+    public double getMonto() {
+        return tarjetaD.getSaldo();
+    }
+
+    public int getId() {
         return id;
+    }
+
+    public void asignarTarjetaS(Tarjeta tarjeta) {
+        this.tarjetaS = tarjeta;
+    }
+
+    public void asignarTarjetaP(Tarjeta tarjeta) {
+        this.tarjetaP = tarjeta;
+    }
+
+    public void asignarTarjetaO(Tarjeta tarjeta) {
+        this.tarjetaO = tarjeta;
     }
 
     private void setId() {
@@ -177,11 +224,10 @@ public class Cliente extends Usuario {
 
     public static void modificarCliente() {
         Scanner scanner = new Scanner(System.in);
-        String nombre, apellidos;
         System.out.println("\n---- Modificar cliente ----\n");
 
         if (Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).isEmpty()) {
-            System.out.println("No hay clientes registrados todavía");
+            System.out.println("No hay clientes registrados.");
             return;
         }
 
@@ -197,72 +243,116 @@ public class Cliente extends Usuario {
                 if (usuario.getNombreUsuario().equals(nombreUsuario)) {
                     Cliente cliente = (Cliente) usuario;
                     System.out.println("\nSeleccione qué campo desea modificar:");
-                    System.out.println("\n1. Nombre");
+                    System.out.println("1. Nombre");
                     System.out.println("2. Apellidos");
                     System.out.println("3. Fecha de nacimiento");
                     System.out.println("4. Dirección");
                     System.out.println("5. Estado");
                     System.out.println("6. Ciudad");
-                    System.out.println("7. Contraseña");
-                    System.out.println("8. Terminar modificación");
+                    System.out.println("7. CURP");
+                    System.out.println("8. Usuario ");
+                    System.out.println("9. Contraseña");
+                    System.out.println("10. Terminar modificación");
                     System.out.print("\nIngrese opción: ");
                     int opcion = scanner.nextInt();
                     scanner.nextLine(); // limpiamos el scanner para que no se buguee
+                    System.out.println("\n");
 
                     switch (opcion) {
-
                         case 1:
-                            System.out.print("\nIngrese el Nombre: ");
-                            nombre = scanner.nextLine();
-                            cliente.setNombre(nombre);
-                            cliente.setRfc(cliente.getFechaNacimiento(), nombre, cliente.getApellidos());
+                            System.out.print("Ingrese el nuevo nombre: ");
+                            String nuevoNombre = scanner.nextLine();
+                            cliente.setNombre(nuevoNombre);
                             break;
 
                         case 2:
-                            System.out.print("\nIngrese apellido paterno: ");
-                            String apellidoP = scanner.nextLine();
-                            System.out.println("Ingrese apellido materno: ");
-                            String apellidoM = scanner.nextLine();
-                            apellidos = apellidoP.concat(" ").concat(apellidoM);
-                            cliente.setApellidos(apellidos);
-                            cliente.setRfc(cliente.getFechaNacimiento(), cliente.getNombre(), apellidos);
+                            System.out.print("Apellido paterno: ");
+                            String paterno = scanner.nextLine();
+                            System.out.println("Apellido materno: ");
+                            String materno = scanner.nextLine();
+                            cliente.setApellidos(paterno.concat(" ").concat(materno));
                             break;
-
+                            
                         case 3:
+                            boolean fechaValida = false;
+                            LocalDate nuevaFechaNacimiento = null;
+                            int dia = 0, mes = 0, año = 0;
+                            do {
+                                try {
+                                    System.out.print("Ingrese el día de nacimiento: ");
+                                    dia = scanner.nextInt();
+                                    System.out.print("Ingrese el mes de nacimiento: ");
+                                    mes = scanner.nextInt();
+                                    System.out.print("Ingrese el año de nacimiento: ");
+                                    año = scanner.nextInt();
+
+                                    nuevaFechaNacimiento = LocalDate.of(año, mes, dia);
+
+                                    // Validaciones
+                                    if (nuevaFechaNacimiento.isAfter(LocalDate.now())) {
+                                        System.out.println("La fecha de nacimiento no puede ser en el futuro.");
+                                    } else if (mes > 12 || dia > 31) {
+                                        System.out.println("Fecha de nacimiento no válida.");
+                                    } else if (mes == 2 && dia > 28) {
+                                        System.out.println("En febrero sólo hay 28 días.");
+                                    } else {
+                                        fechaValida = true;
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("Formato de fecha incorrecto o fuera de rango. Por favor, ingrese una fecha válida.");
+                                    scanner.nextLine(); // Limpiar el buffer del scanner
+                                }
+                            } while (!fechaValida);
+
+                            cliente.setFechaNacimiento(String.format("%d/%d/%d", año, mes, dia)); // Aquí se establece la fecha de nacimiento
+                            scanner.nextLine(); // Limpiar el buffer del scanner después de leer enter
                             break;
 
                         case 4:
-                            System.out.print("\nIngrese nueva dirección: ");
+                            System.out.print("Ingrese nueva dirección: ");
                             String nuevaDireccion = scanner.nextLine();
                             cliente.setDirecccion(nuevaDireccion);
                             break;
 
                         case 5:
-                            System.out.print("\nIngrese nuevo estado: ");
+                            System.out.print("Ingrese nuevo estado: ");
                             String nuevoEstado = scanner.nextLine();
                             cliente.setEstado(nuevoEstado);
                             break;
 
                         case 6:
-                            System.out.print("\nIngrese nueva ciudad: ");
+                            System.out.print("Ingrese nueva ciudad: ");
                             String nuevaCiudad = scanner.nextLine();
                             cliente.setCiudad(nuevaCiudad);
                             break;
-                            
+
                         case 7:
-                            System.out.print("\nIngrese nueva contraseña: ");
+                            System.out.print("Ingrese la nueva CURP: ");
+                            String nuevaCURP = scanner.nextLine();
+                            cliente.setCurp(nuevaCURP);
+                            break;
+
+                        case 8:
+                            System.out.print("Ingresa nuevo nombre de usuario: ");
+                            String nuevoNombreUsuario = scanner.nextLine();
+                            cliente.setNombreUsuario(nuevoNombreUsuario);
+                            break;
+
+                        case 9:
+                            System.out.print("Ingrese nueva contraseña: ");
                             String nuevaContraseña = scanner.nextLine();
                             cliente.setContraseña(nuevaContraseña);
                             break;
 
-                        case 8:
+                        case 10:
                             return;
 
                         default:
                             System.out.println("Opción no válida.");
                     }
-                    
+
                     System.out.println("\nDatos modificados exitosamente:");
+                    cliente.setRfc(cliente.getFechaNacimiento(), cliente.getNombre(), cliente.getApellidos());
                     System.out.println(cliente.getData());
 
                     continuarModificacion = true;
@@ -271,42 +361,58 @@ public class Cliente extends Usuario {
             }
 
             if (!continuarModificacion) {
-                System.out.println("\nNo se encontró ningún cliente con ese nombre de usuario.");
+                System.out.println("No se encontró ningún cliente con ese nombre de usuario.");
                 return; // Salir si no se encontró ningún cliente
             }
 
             System.out.print("\n¿Desea seguir modificando datos? (s/n): ");
             char respuesta = scanner.next().charAt(0);
             continuarModificacion = (respuesta == 's' || respuesta == 'S');
-        } 
-        while (continuarModificacion);
+
+        } while (continuarModificacion);
     }
 
     public void pagarTarjetaCredito() {
         Scanner scanner = new Scanner(System.in);
         boolean band = true;
         String opcion;
-        System.out.println("\n---- Pagar tarjeta de crédito ----\n");
-        System.out.println("Ingrese la cantidad que desea pagar: ");
-        double cantidad = scanner.nextDouble();
-        do {
-            System.out.println("¿Qué tarjeta desea pagar? (S = simplicity, P = platino, O = Oro): ");
-            opcion = scanner.nextLine();
-            if(opcion.equalsIgnoreCase("s")) {
-                tarjetaS.setSaldo(cantidad); 
-            }
-            else if(opcion.equalsIgnoreCase("p")) {
-                tarjetaP.setSaldo(cantidad);
-            }
-            else if(opcion.equalsIgnoreCase("o")) {
-                tarjetaO.setSaldo(cantidad);
-            }
-            else {
-                System.out.println("\nIngrese una opción válida");
-                band = false;
-            }
+        double cantidad;
+        if(tarjetaS == null && tarjetaP == null && tarjetaO == null) {
+            System.out.println("\nNo posees ninguna tarjeta de crédito todavía");
         }
-        while (!band); 
+        else {
+            System.out.println("\n---- Pagar tarjeta de crédito ----\n");
+            do {
+                System.out.println("¿Qué tarjeta desea pagar? (S = simplicity, P = platino, O = Oro): ");
+                opcion = scanner.nextLine();
+                if(opcion.equalsIgnoreCase("s") || opcion.equalsIgnoreCase("p") || opcion.equalsIgnoreCase("o")) {
+                    if(opcion.equalsIgnoreCase("s") && tarjetaS != null) {
+                        System.out.println("\nIngrese la cantidad que desea pagar: ");
+                        cantidad = scanner.nextDouble();
+                        tarjetaS.setSaldo(cantidad); 
+                    }
+                    else if(opcion.equalsIgnoreCase("p") && tarjetaP != null) {
+                        System.out.println("\nIngrese la cantidad que desea pagar: ");
+                        cantidad = scanner.nextDouble();
+                        tarjetaP.setSaldo(cantidad);
+                    }
+                    else if(opcion.equalsIgnoreCase("o") && tarjetaO != null) {
+                        System.out.println("\nIngrese la cantidad que desea pagar: ");
+                        cantidad = scanner.nextDouble();
+                        tarjetaO.setSaldo(cantidad);
+                    }
+                    else {
+                        System.out.println("\nNo posees esta tarjeta");
+                        band = false;
+                    } 
+                }
+                else {
+                    System.out.println("\nIngrese una opción válida");
+                    band = false;
+                }
+            }   
+            while (!band);
+        }
     }
 
     public void mostrarDatosTarjeta() {
