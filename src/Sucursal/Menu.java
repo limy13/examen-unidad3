@@ -271,6 +271,7 @@ public class Menu {
                     break;
 
                 case 14:
+                    scanner.nextLine();
                     do {
                         System.out.print("\nIngrese la contraseña para poder acceder a esta función: ");
                         cadena = scanner.nextLine();
@@ -287,6 +288,7 @@ public class Menu {
                     break;
 
                 case 15:
+                    scanner.nextLine();
                     do {
                         System.out.print("\nIngrese la contraseña para poder acceder a esta función: ");
                         cadena = scanner.nextLine();
@@ -303,6 +305,7 @@ public class Menu {
                     break;
 
                 case 16:
+                    scanner.nextLine();
                     do {
                         System.out.print("\nIngrese la contraseña para poder acceder a esta función: ");
                         cadena = scanner.nextLine();
@@ -319,6 +322,7 @@ public class Menu {
                     break;
 
                 case 17:
+                    scanner.nextLine();
                     do {
                         System.out.print("\nIngrese la contraseña para poder acceder a esta función: ");
                         cadena = scanner.nextLine();
@@ -335,6 +339,7 @@ public class Menu {
                     break;
 
                 case 18: 
+                    scanner.nextLine();
                     do {
                         System.out.print("\nIngrese la contraseña para poder acceder a esta función: ");
                         cadena = scanner.nextLine();

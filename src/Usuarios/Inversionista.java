@@ -42,57 +42,72 @@ public class Inversionista extends Usuario{
 
     public static void listarInversionistas() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\n---- Consultar inversionistas -----\n");
-        System.out.println("1. Listar inversionistas");
-        System.out.println("2. Consultar inversionista");
-        System.out.print("\nIngrese opción: ");
-        int decision = scanner.nextInt();
-
+        boolean band = true;
+       
         if(Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA).isEmpty()) {
             System.out.println("\nNo hay inversionistas registrados todavía");
         }
-        else if (decision == 1) {
-            int x = 1;
-            System.out.println("\nInversionistas registrados:");
-            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA)) {
-                System.out.println("\n---- Inversionista " + x + " ----");
-                System.out.println(usuario.getData());
-                x++;
-            }
-        }
         else {
-            boolean band = false;
-            System.out.println("\n---- Consultar inversionista ----\n");
-            System.out.print("Ingrese el nombre de usuario del inversionista que desea consultar: ");
-            String nombreUsuario = scanner.nextLine();
-            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA)) {
-                if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                    System.out.println("\n---- Inversionista ----");
-                    System.out.println(usuario.getData());
-                    return;
+            do {
+                System.out.println("\n---- Consultar inversionistas -----\n");
+                System.out.println("1. Listar inversionistas");
+                System.out.println("2. Consultar inversionista");
+                System.out.print("\nIngrese opción: ");
+                int decision = scanner.nextInt();
+            
+                if(decision == 1) {
+                    int x = 1;
+                    System.out.println("\nInversionistas registrados:");
+                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA)) {
+                        System.out.println("\n---- Inversionista " + x + " ----");
+                        System.out.println(usuario.getData());
+                        x++;
+                    }
+                }
+                else if(decision == 2){
+                    boolean band2 = false;
+                    System.out.println("\n---- Consultar inversionista ----\n");
+                    System.out.print("Ingrese el nombre de usuario del inversionista que desea consultar: ");
+                    String nombreUsuario = scanner.nextLine();
+                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA)) {
+                        if(usuario.getNombreUsuario().equals(nombreUsuario)) {
+                            System.out.println("\n---- Inversionista ----");
+                            System.out.println(usuario.getData());
+                            return;
+                        }
+                    }
+                    if(!band2) {
+                        System.out.println("\nEste nombre de usuario no pertenece a ningún inversionista");
+                    }
+                }
+                else {
+                    System.out.println("\nIngrese una opción válida");
                 }
             }
-            if(!band) {
-                System.out.println("\nEste nombre de usuario no pertenece a ningún inversionista");
-            }
+            while(!band);
         }
     }
 
     public static void eliminarInversionista() {
         Scanner scanner = new Scanner(System.in);
         boolean band = false;
-        System.out.println("\n---- Eliminar inversionista ----\n");
-        System.out.print("Ingrese el nombre de usuario del inversionista que desea eliminar: ");
-        String nombreUsuario = scanner.nextLine();
-        for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA)) {
-            if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA).remove(usuario);
-                System.out.println("\nInversionista eliminado");
-                return;
-            }
+        if(Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA).isEmpty()) {
+            System.out.println("\nNo hay clientes registrados todavía");
         }
-        if(!band) {
-            System.out.println("\nEste nombre de usuario no pertenece a ningún inversionista");
+        else {
+            System.out.println("\n---- Eliminar inversionista ----\n");
+            System.out.print("Ingrese el nombre de usuario del inversionista que desea eliminar: ");
+            String nombreUsuario = scanner.nextLine();
+            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA)) {
+                if(usuario.getNombreUsuario().equals(nombreUsuario)) {
+                    Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA).remove(usuario);
+                    System.out.println("\nInversionista eliminado");
+                    return;
+                }
+            }
+            if(!band) {
+                System.out.println("\nEste nombre de usuario no pertenece a ningún inversionista");
+            }
         }
     }
 

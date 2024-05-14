@@ -53,57 +53,72 @@ public class Ejecutivo extends Usuario {
 
     public static void listarEjecutivos() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\n---- Consultar ejecutivos de cuenta -----\n");
-        System.out.println("1. Listar ejecutivos de cuenta");
-        System.out.println("2. Consultar ejecutivo de cuenta");
-        System.out.print("\nIngrese opción: ");
-        int decision = scanner.nextInt();
-
+        boolean band = true;
+       
         if(Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO).isEmpty()) {
-            System.out.println("\nNo hay ejecutivos registrados todavía");
-        }
-        else if (decision == 1) {
-            int x = 1;
-            System.out.println("\nEjecutivos registrados:");
-            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
-                System.out.println("\n---- Ejecutivos " + x + " ----");
-                System.out.println(usuario.getData());
-                x++;
-            }
+            System.out.println("\nNo hay ejecutivos de cuenta registrados todavía");
         }
         else {
-            boolean band = false;
-            System.out.println("\n---- Consultar ejecutivo de cuenta ----\n");
-            System.out.print("Ingrese el nombre de usuario del ejecutivo que desea consultar: ");
-            String nombreUsuario = scanner.nextLine();
-            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
-                if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                    System.out.println("\n---- Ejecutivo ----");
-                    System.out.println(usuario.getData());
-                    return;
+            do {
+                System.out.println("\n---- Consultar ejecutivos de cuenta -----\n");
+                System.out.println("1. Listar ejecutivos de cuenta");
+                System.out.println("2. Consultar ejecutivos de cuenta");
+                System.out.print("\nIngrese opción: ");
+                int decision = scanner.nextInt();
+            
+                if(decision == 1) {
+                    int x = 1;
+                    System.out.println("\nEjecutivos de cuenta registrados:");
+                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
+                        System.out.println("\n---- Ejecutivo " + x + " ----");
+                        System.out.println(usuario.getData());
+                        x++;
+                    }
+                }
+                else if(decision == 2){
+                    boolean band2 = false;
+                    System.out.println("\n---- Consultar ejecutivo de cuenta ----\n");
+                    System.out.print("Ingrese el nombre de usuario del ejecutivo que desea consultar: ");
+                    String nombreUsuario = scanner.nextLine();
+                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
+                        if(usuario.getNombreUsuario().equals(nombreUsuario)) {
+                            System.out.println("\n---- Ejecutivo de cuenta ----");
+                            System.out.println(usuario.getData());
+                            return;
+                        }
+                    }
+                    if(!band2) {
+                        System.out.println("\nEste nombre de usuario no pertenece a ningún ejecutivo de cuenta");
+                    }
+                }
+                else {
+                    System.out.println("\nIngrese una opción válida");
                 }
             }
-            if(!band) {
-                System.out.println("\nEste nombre de usuario no pertenece a ningún ejecutivo");
-            }
+            while(!band);
         }
     }
 
     public static void eliminarEjecutivo() {
         Scanner scanner = new Scanner(System.in);
         boolean band = false;
-        System.out.println("\n---- Eliminar ejecutivo de cuenta ----\n");
-        System.out.print("Ingrese el nombre de usuario del ejecutivo que desea eliminar: ");
-        String nombreUsuario = scanner.nextLine();
-        for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
-            if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO).remove(usuario);
-                System.out.println("\nEjecutivo eliminado");
-                return;
-            }
+        if(Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO).isEmpty()) {
+            System.out.println("\nNo hay clientes registrados todavía");
         }
-        if(!band) {
-            System.out.println("\nEste nombre de usuario no pertenece a ningún ejecutivo");
+        else {
+            System.out.println("\n---- Eliminar ejecutivo de cuenta ----\n");
+            System.out.print("Ingrese el nombre de usuario del ejecutivo que desea eliminar: ");
+            String nombreUsuario = scanner.nextLine();
+            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
+                if(usuario.getNombreUsuario().equals(nombreUsuario)) {
+                    Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO).remove(usuario);
+                    System.out.println("\nEjecutivo eliminado");
+                    return;
+                }
+            }
+            if(!band) {
+                System.out.println("\nEste nombre de usuario no pertenece a ningún ejecutivo");
+            }
         }
     }
 
