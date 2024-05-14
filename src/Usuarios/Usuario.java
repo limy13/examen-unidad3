@@ -82,7 +82,7 @@ public class Usuario {
         String fechaIngresada = "";
 
         while (!fechaValida) {
-            System.out.println("Ingresa una fecha con formato yyyy-MM-dd:");
+            System.out.print("Ingresa una fecha con formato yyyy-MM-dd:");
             fechaIngresada = scanner.nextLine();
 
             String[] partesFecha = fechaIngresada.split("-");
@@ -98,10 +98,10 @@ public class Usuario {
                     if (dia >= 1 && dia <= obtenerDiasEnMes(mes)) {
                         fechaValida = true;
                     } else {
-                        System.out.println("Error: El día ingresado no corresponde al mes especificado.");
+                        System.out.println("\nError: El día ingresado no corresponde al mes especificado.");
                     }
                 } else {
-                    System.out.println("Error: El mes ingresado no es válido.");
+                    System.out.println("\nError: El mes ingresado no es válido.");
                 }
 
             }
@@ -120,20 +120,20 @@ public class Usuario {
                     if (dia >= 1 && dia <= obtenerDiasEnMes(mes)) {
                         fechaValida = true;
                     } else {
-                        System.out.println("Error: El día ingresado no corresponde al mes especificado.");
+                        System.out.println("\nError: El día ingresado no corresponde al mes especificado.");
                     }
                 } else {
-                    System.out.println("Error: El mes ingresado no es válido.");
+                    System.out.println("\nError: El mes ingresado no es válido.");
                 }
             } else {
-                System.out.println("Error: El año ingresado no puede ser un año futuro o muy muy viejo.");
+                System.out.println("\nError: El año ingresado no puede ser un año futuro o muy muy viejo.");
             }//fin if
         }//while
 
       return fechaIngresada;
     }//metodovalidar
 
-    
+
     public static int obtenerDiasEnMes(int mes) {
         switch (mes) {
             case 2:
