@@ -71,27 +71,27 @@ public class Capturista extends Usuario {
             
                 if(decision == 1) {
                     int x = 1;
-                    System.out.println("\nEjecutivos de cuenta registrados:");
-                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
-                        System.out.println("\n---- Ejecutivo " + x + " ----");
+                    System.out.println("\nCapturistas registrados:");
+                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA)) {
+                        System.out.println("\n---- Capturista " + x + " ----");
                         System.out.println(usuario.getData());
                         x++;
                     }
                 }
                 else if(decision == 2){
                     boolean band2 = false;
-                    System.out.println("\n---- Consultar ejecutivo de cuenta ----\n");
-                    System.out.print("Ingrese el nombre de usuario del ejecutivo que desea consultar: ");
+                    System.out.println("\n---- Consultar capturista ----\n");
+                    System.out.print("Ingrese el nombre de usuario del capturista que desea consultar: ");
                     String nombreUsuario = scanner.nextLine();
-                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
+                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA)) {
                         if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                            System.out.println("\n---- Ejecutivo de cuenta ----");
+                            System.out.println("\n---- Capturista ----");
                             System.out.println(usuario.getData());
                             return;
                         }
                     }
                     if(!band2) {
-                        System.out.println("\nEste nombre de usuario no pertenece a ningún ejecutivo de cuenta");
+                        System.out.println("\nEste nombre de usuario no pertenece a ningún capturista");
                     }
                 }
                 else {

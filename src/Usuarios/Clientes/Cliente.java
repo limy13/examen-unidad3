@@ -132,59 +132,73 @@ public class Cliente extends Usuario {
 
     public static void listarClientes() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\n\n---- Consultar clientes -----\n");
-        System.out.println("1. Listar clientes");
-        System.out.println("2. Consultar cliente");
-        System.out.print("\nIngrese opción: ");
-        int decision = scanner.nextInt();
-
+        boolean band = true;
+       
         if(Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).isEmpty()) {
             System.out.println("\nNo hay clientes registrados todavía");
         }
-        else if (decision == 1) {
-            int x = 1;
-            System.out.println("\nClientes registrados:");
-            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
-                System.out.println("\n---- Cliente " + x + " ----");
-                System.out.println(usuario.getData());
-                tarjetaD.mostrarDatosTarjeta();
-                if(tarjetaS != null) {
-                    tarjetaS.mostrarDatosTarjeta();
-                }
-                if(tarjetaP != null) {
-                    tarjetaP.mostrarDatosTarjeta();
-                }
-                if(tarjetaO != null) {
-                    tarjetaO.mostrarDatosTarjeta();
-                }
-                x++;
-            }
-        }
         else {
-            boolean band = false;
-            System.out.println("\n---- Consultar cliente ----\n");
-            System.out.print("Ingrese el nombre de usuario del cliente que desea consultar: ");
-            String nombreUsuario = scanner.nextLine();
-            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
-                if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                    System.out.println("\n---- Cliente ----");
-                    System.out.println(usuario.getData());
-                    tarjetaD.mostrarDatosTarjeta();
-                    if(tarjetaS != null) {
-                        tarjetaS.mostrarDatosTarjeta();
+            do {
+                System.out.println("\n\n---- Consultar clientes -----\n");
+                System.out.println("1. Listar clientes");
+                System.out.println("2. Consultar cliente");
+                System.out.print("\nIngrese opción: ");
+                int decision = scanner.nextInt();
+
+                if (decision == 1) {
+                    int x = 1;
+                    System.out.println("\nClientes registrados:");
+                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
+                        Cliente cliente = (Cliente) usuario;
+                        System.out.println("\n\n---- Cliente " + x + " ----");
+                        System.out.println(cliente.getData());
+                        cliente.getTarjetaDebito().mostrarDatosTarjeta();
+                        if(cliente.getTarjetaSimplicity() != null) {
+                            cliente.getTarjetaSimplicity().mostrarDatosTarjeta();
+                        }
+                        if(cliente.getTarjetaPlatino() != null) {
+                            cliente.getTarjetaPlatino().mostrarDatosTarjeta();
+                        }
+                        if(cliente.getTarjetaOro() != null) {
+                            cliente.getTarjetaOro().mostrarDatosTarjeta();
+                        }
+                        x++;
                     }
-                    if(tarjetaP != null) {
-                        tarjetaP.mostrarDatosTarjeta();
+                }
+                else if(decision == 2){
+                    boolean band2 = false;
+                    System.out.println("\n---- Consultar cliente ----\n");
+                    System.out.print("Ingrese el nombre de usuario del cliente que desea consultar: ");
+                    String nombreUsuario = scanner.nextLine();
+                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
+                        if(usuario.getNombreUsuario().equals(nombreUsuario)) {
+                            Cliente cliente = (Cliente) usuario;
+                            System.out.println("\n---- Cliente ----");
+                            System.out.println(cliente.getData());
+                            cliente.getTarjetaDebito().mostrarDatosTarjeta();
+                            if(cliente.getTarjetaSimplicity() != null) {
+                                cliente.getTarjetaSimplicity().mostrarDatosTarjeta();
+                            }
+                            if(cliente.getTarjetaPlatino() != null) {
+                                cliente.getTarjetaPlatino().mostrarDatosTarjeta();
+                            }
+                            if(cliente.getTarjetaOro() != null) {
+                                cliente.getTarjetaOro().mostrarDatosTarjeta();
+                            }
+                            return;
+                        }
                     }
-                    if(tarjetaO != null) {
-                        tarjetaO.mostrarDatosTarjeta();
+                    if(!band2) {
+                        System.out.println("\nEste nombre de usuario no pertenece a ningún cliente");
+                        band = false;
                     }
-                    return;
+                }
+                else {
+                    System.out.println("\nIngrese una opción válida");
+                    band = false;
                 }
             }
-            if(!band) {
-                System.out.println("\nEste nombre de usuario no pertenece a ningún cliente");
-            }
+            while(!band);
         }
     }
 

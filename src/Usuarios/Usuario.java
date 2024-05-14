@@ -94,18 +94,18 @@ public class Usuario {
             // Verificar que el año no sea futuro
             if (año <= LocalDate.now().getYear()) {
                 // Validar el mes
-                if (mes >= 1 && mes <= 12) {
+                if (mes >= 1 && mes <= 12 && mes <= LocalDate.now().getMonthValue()) {
                     // Validar el día
                     if (dia >= 1 && dia <= obtenerDiasEnMes(mes)) {
                         fechaValida = true;
                     } else {
-                        System.out.println("Error: El día ingresado no corresponde al mes especificado.");
+                        System.out.println("\nError: El día ingresado no corresponde al mes especificado\n");
                     }
                 } else {
-                    System.out.println("Error: El mes ingresado no es válido.");
+                    System.out.println("\nError: El mes ingresado no es válido\n");
                 }
             } else {
-                System.out.println("Error: El año ingresado no puede ser un año futuro.");
+                System.out.println("\nError: El año ingresado no puede ser un año futuro\n");
             }
         }
       return String.valueOf(LocalDate.of(año, mes, dia)); 
