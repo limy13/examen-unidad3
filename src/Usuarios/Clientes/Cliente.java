@@ -41,7 +41,7 @@ public class Cliente extends Usuario {
         if(!solicitudesPendientes.isEmpty()) {
             System.out.println("\n**** Solicitudes pendientes ****");
             for(Solicitud solicitud : solicitudesPendientes) {
-                System.out.println("\n---- Solicitud " + x + " ----\n\n");
+                System.out.println("\n---- Solicitud " + x + " ----\n");
                 System.out.println(solicitud.getData());
                 x++;
             }

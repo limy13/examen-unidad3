@@ -59,7 +59,7 @@ public class Banco {
             int x = 1;
             System.out.println("\n**** Inversiones realizadas ****\n");
             for(String inversion : inversionesRealizadas) {
-                System.out.println("---- Inversión " + x + " ----");
+                System.out.println("---- Inversión " + x + " ----\n");
                 System.out.println(inversion);
                 x++;
             }

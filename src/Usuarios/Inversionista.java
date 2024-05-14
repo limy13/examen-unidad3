@@ -281,6 +281,7 @@ public class Inversionista extends Usuario{
         double cantidad = scanner.nextDouble();
         inversionesRealizadas.add(String.format("\nCantidad aportada: %.2f MX", cantidad)+ "\nFecha del movimiento: " + LocalDate.now());
         Banco.inversionesRealizadas.add(String.format("Nombre del inversionista: %s %s \nCantidad aportada: %.2f MX", getNombre(), getApellidos(), cantidad)+ "\nSucursal: " + Banco.sucu + "\nFecha del movimiento: " + LocalDate.now()); 
+        System.out.println("\nSe invirtieron " + cantidad + " MX");
     }
 
 }

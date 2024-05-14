@@ -85,9 +85,9 @@ public class Solicitud {
         int x = 1;
         if(!solicitudesPendientes.isEmpty()) {
     
-            System.out.println("\n---- Solicitudes pendientes por aprobar ----\n");
+            System.out.println("\n---- Solicitudes pendientes por aprobar ----");
             for(Solicitud i : solicitudesPendientes) {
-                System.out.println("**** Solicitud " + x + " ****\n");
+                System.out.println("\n**** Solicitud " + x + " ****\n");
                 System.out.println(i.getData());
                 x++;
             }
@@ -143,7 +143,6 @@ public class Solicitud {
                             i.getCliente().setSolicitudes(false);
                             band2 = true;
                             solicitudEliminada = i;
-                            return;
                         }
                     }
                     if(!band2) {
