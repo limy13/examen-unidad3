@@ -93,6 +93,7 @@ public class Ejecutivo extends Usuario {
                 }
                 else {
                     System.out.println("\nIngrese una opción válida");
+                    band = false;
                 }
             }
             while(!band);

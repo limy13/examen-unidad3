@@ -56,41 +56,53 @@ public class Capturista extends Usuario {
 
     public static void listarCapturistas() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\n---- Consultar capturistas -----\n");
-        System.out.println("1. Listar capturistas");
-        System.out.println("2. Consultar capturistas");
-        System.out.print("\nIngrese opción: ");
-        int decision = scanner.nextInt();
-
+        boolean band = true;
+       
         if(Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA).isEmpty()) {
             System.out.println("\nNo hay capturistas registrados todavía");
         }
-        else if (decision == 1) {
-            int x = 1;
-            System.out.println("\nCapturistas registrados");
-            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA)) {
-                System.out.println("\n---- Capturistas " + x + " ----");
-                System.out.println(usuario.getData());
-            }
-        }
         else {
-            boolean band = false;
-            System.out.println("\n---- Consultar capturista ----\n");
-            System.out.print("Ingrese el nombre de usuario del capturista que desea consultar: ");
-            String nombreUsuario = scanner.nextLine();
-            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA)) {
-                if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                    System.out.println("\n---- Capturista ----");
-                    System.out.println(usuario.getData());
-                    band = true;
-                    return;
+            do {
+                System.out.println("\n---- Consultar capturistas -----\n");
+                System.out.println("1. Listar capturistas");
+                System.out.println("2. Consultar capturistas");
+                System.out.print("\nIngrese opción: ");
+                int decision = scanner.nextInt();
+            
+                if(decision == 1) {
+                    int x = 1;
+                    System.out.println("\nEjecutivos de cuenta registrados:");
+                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
+                        System.out.println("\n---- Ejecutivo " + x + " ----");
+                        System.out.println(usuario.getData());
+                        x++;
+                    }
+                }
+                else if(decision == 2){
+                    boolean band2 = false;
+                    System.out.println("\n---- Consultar ejecutivo de cuenta ----\n");
+                    System.out.print("Ingrese el nombre de usuario del ejecutivo que desea consultar: ");
+                    String nombreUsuario = scanner.nextLine();
+                    for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO)) {
+                        if(usuario.getNombreUsuario().equals(nombreUsuario)) {
+                            System.out.println("\n---- Ejecutivo de cuenta ----");
+                            System.out.println(usuario.getData());
+                            return;
+                        }
+                    }
+                    if(!band2) {
+                        System.out.println("\nEste nombre de usuario no pertenece a ningún ejecutivo de cuenta");
+                    }
+                }
+                else {
+                    System.out.println("\nIngrese una opción válida");
+                    band = false;
                 }
             }
-            if(!band) {
-                System.out.println("\nEste nombre de usuario no pertenece a ningún capturista");
-            }
-
+            while(!band);
         }
+
+        
     }
 
     public static void eliminarCapturista() {

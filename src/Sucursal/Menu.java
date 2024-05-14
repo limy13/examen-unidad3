@@ -70,13 +70,13 @@ public class Menu {
             System.out.println("3. Mostrar información de tarjetas");
             System.out.println("4. Depositar cantidad de tarjeta de débito");
             System.out.println("5. Retirar cantidad de tarjeta de débito");
-            if(cliente.getTarjetaDebito().getSaldo() > 50000 && cliente.getTarjetaSimplicity() == null && !cliente.getSolicitudes()) {
+            if(cliente.getTarjetaDebito().getSaldo() >= 50000 && cliente.getTarjetaSimplicity() == null && !cliente.getSolicitudes()) {
                 System.out.println("6. Solicitar tarjeta simplicity");
             }
-            if(cliente.getTarjetaDebito().getSaldo() > 100000 && cliente.getTarjetaPlatino() == null && !cliente.getSolicitudes()) {
+            if(cliente.getTarjetaDebito().getSaldo() >= 100000 && cliente.getTarjetaPlatino() == null && !cliente.getSolicitudes()) {
                 System.out.println("7. Solicitar tarjeta platino");
             }
-            if(cliente.getTarjetaDebito().getSaldo() > 200000 && cliente.getTarjetaOro() == null && !cliente.getSolicitudes()) {
+            if(cliente.getTarjetaDebito().getSaldo() >= 200000 && cliente.getTarjetaOro() == null && !cliente.getSolicitudes()) {
                 System.out.println("8. Solicitar tarjeta oro");
             }
             System.out.println("9. Mostrar estatus de solicitudes de tarjetas de crédito");
