@@ -126,8 +126,6 @@ public class Usuario {
         Scanner scanner = new Scanner(System.in);
         String nombreUsuario = "";
         boolean nombreUsuarioExistente = true;
-        //cambiar a que no haya usuaris repetidos en las 2 sucurslaes
-        //Map<Rol, ArrayList<Usuario>> lista = Banco.sucursal.get(Banco.sucu);
         do {
             System.out.print("\nIngresa el nombre de usuario: ");
             nombreUsuario = scanner.nextLine();
