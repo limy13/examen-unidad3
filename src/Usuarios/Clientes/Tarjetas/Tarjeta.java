@@ -82,10 +82,10 @@ public class Tarjeta {
             char caracter = caracteres.charAt(random.nextInt(caracteres.length() - 1));
             clabe += caracter;
             if(i == x) {
-                numeroCuenta += " ";
+                this.numeroCuenta += " ";
                 x += 4;
             }
-            numeroCuenta += caracter;
+            this.numeroCuenta += caracter;
         }
         return clabe + " " + String.valueOf(caracteres.charAt(random.nextInt(caracteres.length() - 1)));
     }

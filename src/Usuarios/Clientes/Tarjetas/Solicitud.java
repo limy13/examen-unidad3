@@ -19,8 +19,8 @@ public class Solicitud {
     private TiposTarjeta tipoTarjeta;
     private Cliente cliente;
 
-    public Solicitud(Cliente cliente, TiposTarjeta tipoTarjeta) {
-        this.cliente = cliente;
+    public Solicitud(Cliente clienteA, TiposTarjeta tipoTarjeta) {
+        this.cliente = clienteA;
         this.idCliente = cliente.getId();
         this.nombre = cliente.getNombre();
         this.apellido = cliente.getApellidos();
@@ -73,8 +73,8 @@ public class Solicitud {
     }
 
     public String getData() {
-        return String.format("Nombre del aspirante: %s %s \nID del cliente: %d \nID de la solicitud: %d \nMonto disponible en tarjeta de débito: %.2f", 
-        nombre, apellido, idCliente, idSolicitud, monto + "\nTipo de tarjeta solicitada: " + tipoTarjeta + "\nFecha en que se solicita: " + fechaSolicitud + "\nStatus: " + estado);
+        return String.format("Nombre del aspirante: %s %s \nID del cliente: %d \nID de la solicitud: %d \nMonto disponible en tarjeta de débito: %.2f MX"
+        , nombre, apellido, idCliente, idSolicitud, monto) + "\nTipo de tarjeta solicitada: " + tipoTarjeta + "\nFecha en que se solicita: " + fechaSolicitud + "\nStatus: " + estado;
     }
 
     public static void solicitud() {
@@ -87,7 +87,7 @@ public class Solicitud {
     
             System.out.println("\n---- Solicitudes pendientes por aprobar ----\n");
             for(Solicitud i : solicitudesPendientes) {
-                System.out.println("\n**** Solicitud " + x + " ****");
+                System.out.println("**** Solicitud " + x + " ****\n");
                 System.out.println(i.getData());
                 x++;
             }
@@ -118,7 +118,6 @@ public class Solicitud {
                             }
                             solicitudEliminada = i;
                             band2 = true;
-                            return;
                         }
                     }
                     if(!band2) {

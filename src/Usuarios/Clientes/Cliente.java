@@ -15,7 +15,7 @@ public class Cliente extends Usuario {
     private static int CANTIDAD_CLIENTES = 1;
     private int id;
     private boolean solicitudes = false;
-    private static Tarjeta tarjetaD, tarjetaS, tarjetaO, tarjetaP;
+    private Tarjeta tarjetaD, tarjetaS, tarjetaO, tarjetaP;
 
     public Cliente(String sucursal, String direcccion, String curp, String estado, String ciudad, String fechaNacimiento, String apellidos, String nombre, String nombreUsuario, String contraseña, String rfc, Tarjeta tarjeta) {
         super(sucursal, direcccion, curp, estado, ciudad, fechaNacimiento, apellidos, nombre, nombreUsuario, contraseña, Rol.CLIENTE, rfc);
@@ -41,7 +41,7 @@ public class Cliente extends Usuario {
         if(!solicitudesPendientes.isEmpty()) {
             System.out.println("\n**** Solicitudes pendientes ****");
             for(Solicitud solicitud : solicitudesPendientes) {
-                System.out.println("\n---- Solicitud " + x + "----");
+                System.out.println("\n---- Solicitud " + x + " ----\n\n");
                 System.out.println(solicitud.getData());
                 x++;
             }
@@ -133,12 +133,12 @@ public class Cliente extends Usuario {
     public static void listarClientes() {
         Scanner scanner = new Scanner(System.in);
         boolean band = true;
-       
         if(Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).isEmpty()) {
             System.out.println("\nNo hay clientes registrados todavía");
         }
         else {
             do {
+                band = true;
                 System.out.println("\n\n---- Consultar clientes -----\n");
                 System.out.println("1. Listar clientes");
                 System.out.println("2. Consultar cliente");
@@ -168,6 +168,7 @@ public class Cliente extends Usuario {
                 else if(decision == 2){
                     boolean band2 = false;
                     System.out.println("\n---- Consultar cliente ----\n");
+                    scanner.nextLine();
                     System.out.print("Ingrese el nombre de usuario del cliente que desea consultar: ");
                     String nombreUsuario = scanner.nextLine();
                     for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
@@ -393,22 +394,26 @@ public class Cliente extends Usuario {
             System.out.println("\nNo posees ninguna tarjeta de crédito todavía");
         }
         else {
-            System.out.println("\n---- Pagar tarjeta de crédito ----\n");
+            System.out.println("\n---- Pagar tarjeta de crédito ----");
             do {
-                System.out.print("¿Qué tarjeta desea pagar? (S = simplicity, P = platino, O = Oro): ");
+                band = true;
+                System.out.print("\n¿Qué tarjeta desea pagar? (S = simplicity, P = platino, O = Oro): ");
                 opcion = scanner.nextLine();
                 if(opcion.equalsIgnoreCase("s") || opcion.equalsIgnoreCase("p") || opcion.equalsIgnoreCase("o")) {
+                    System.out.println("\nSaldo actual: " + tarjetaS.getSaldo());
                     if(opcion.equalsIgnoreCase("s") && tarjetaS != null) {
                         System.out.print("\nIngrese la cantidad que desea pagar: ");
                         cantidad = scanner.nextDouble();
                         tarjetaS.setSaldo(tarjetaS.getSaldo() + cantidad); 
                     }
                     else if(opcion.equalsIgnoreCase("p") && tarjetaP != null) {
+                        System.out.println("\nSaldo actual: " + tarjetaP.getSaldo());
                         System.out.print("\nIngrese la cantidad que desea pagar: ");
                         cantidad = scanner.nextDouble();
                         tarjetaP.setSaldo(tarjetaP.getSaldo() + cantidad);
                     }
                     else if(opcion.equalsIgnoreCase("o") && tarjetaO != null) {
+                        System.out.println("\nSaldo actual: " + tarjetaO.getSaldo());
                         System.out.print("\nIngrese la cantidad que desea pagar: ");
                         cantidad = scanner.nextDouble();
                         tarjetaO.setSaldo(tarjetaO.getSaldo() + cantidad);
@@ -449,9 +454,9 @@ public class Cliente extends Usuario {
             System.out.println("\nNo posees ninguna tarjeta de crédito todavía");
         }
         else {
-            System.out.println("\n---- Pagar con tarjeta de crédito ----\n");
+            System.out.println("\n---- Pagar con tarjeta de crédito ----");
             do {
-                System.out.print("¿Con que tarjeta desea pagar? (S = simplicity, P = platino, O = Oro): ");
+                System.out.print("\n¿Con que tarjeta desea pagar? (S = simplicity, P = platino, O = Oro): ");
                 opcion = scanner.nextLine();
                 if(opcion.equalsIgnoreCase("s") || opcion.equalsIgnoreCase("p") || opcion.equalsIgnoreCase("o")) {
                     if(opcion.equalsIgnoreCase("s") && tarjetaS != null) {

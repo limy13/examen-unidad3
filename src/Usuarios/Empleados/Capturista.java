@@ -18,7 +18,7 @@ public class Capturista extends Usuario {
 
     @Override
     public String getData() {
-        return String.format(super.getData() + "\nSalario: %.2f" + salario);
+        return String.format(super.getData() + "\nSalario: %.2f MX" + salario);
     }
 
     public void setSalario(double salario) {
@@ -39,10 +39,10 @@ public class Capturista extends Usuario {
         String contraseña = datos.get(8);
         String rfc = datos.get(9);
         String sucursal = datos.get(10);
-        System.out.println("Salario: ");
+        System.out.print("Salario: ");
         double salario = scanner.nextDouble();
 
-        System.out.println("\n¿Cancelar registro? (1 = si, 2 = no)");
+        System.out.print("\n¿Cancelar registro? (1 = si, 2 = no)");
         int decision = scanner.nextInt();
         if(decision == 1) {
             System.out.println("\nRegistro cancelado");
@@ -63,6 +63,7 @@ public class Capturista extends Usuario {
         }
         else {
             do {
+                band = true;
                 System.out.println("\n---- Consultar capturistas -----\n");
                 System.out.println("1. Listar capturistas");
                 System.out.println("2. Consultar capturistas");
@@ -82,6 +83,7 @@ public class Capturista extends Usuario {
                     boolean band2 = false;
                     System.out.println("\n---- Consultar capturista ----\n");
                     System.out.print("Ingrese el nombre de usuario del capturista que desea consultar: ");
+                    scanner.nextLine();
                     String nombreUsuario = scanner.nextLine();
                     for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA)) {
                         if(usuario.getNombreUsuario().equals(nombreUsuario)) {
@@ -92,6 +94,7 @@ public class Capturista extends Usuario {
                     }
                     if(!band2) {
                         System.out.println("\nEste nombre de usuario no pertenece a ningún capturista");
+                        band = false;
                     }
                 }
                 else {
@@ -109,7 +112,7 @@ public class Capturista extends Usuario {
         Scanner scanner = new Scanner(System.in);
         boolean band = false;
         if(Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA).isEmpty()) {
-            System.out.println("\nNo hay clientes registrados todavía");
+            System.out.println("\nNo hay capturistas registrados todavía");
         }
         else {
             System.out.println("\n---- Eliminar capturista ----\n");

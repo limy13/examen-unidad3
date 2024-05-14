@@ -49,6 +49,7 @@ public class Inversionista extends Usuario{
         }
         else {
             do {
+                band = true;
                 System.out.println("\n---- Consultar inversionistas -----\n");
                 System.out.println("1. Listar inversionistas");
                 System.out.println("2. Consultar inversionista");
@@ -78,6 +79,7 @@ public class Inversionista extends Usuario{
                     }
                     if(!band2) {
                         System.out.println("\nEste nombre de usuario no pertenece a ningún inversionista");
+                        band = false;
                     }
                 }
                 else {
@@ -93,7 +95,7 @@ public class Inversionista extends Usuario{
         Scanner scanner = new Scanner(System.in);
         boolean band = false;
         if(Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA).isEmpty()) {
-            System.out.println("\nNo hay clientes registrados todavía");
+            System.out.println("\nNo hay inversionistas registrados todavía");
         }
         else {
             System.out.println("\n---- Eliminar inversionista ----\n");

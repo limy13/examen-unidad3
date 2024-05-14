@@ -50,4 +50,19 @@ public class Banco {
         }
         return null;
     }
+
+    public static void mostrarInversionesRealizadas() {
+        if(inversionesRealizadas.isEmpty()) {
+            System.out.println("\nNo hay inversiones realizadas todavía");
+        }
+        else {
+            int x = 1;
+            System.out.println("\n**** Inversiones realizadas ****\n");
+            for(String inversion : inversionesRealizadas) {
+                System.out.println("---- Inversión " + x + " ----");
+                System.out.println(inversion);
+                x++;
+            }
+        }
+    }
 }

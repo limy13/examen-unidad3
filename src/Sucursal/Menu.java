@@ -111,6 +111,7 @@ public class Menu {
                     Solicitud.solicitudesPendientes.add(solicitud);
                     cliente.agregarSolicitud(solicitud);
                     cliente.setSolicitudes(true);
+                    System.out.println("\nSolicitud realizada exitosamente");
                     break;
 
                 case 7:
@@ -118,6 +119,7 @@ public class Menu {
                     Solicitud.solicitudesPendientes.add(solicitud);
                     cliente.agregarSolicitud(solicitud);
                     cliente.setSolicitudes(true);
+                    System.out.println("\nSolicitud realizada exitosamente");
                     break;
 
                 case 8:
@@ -125,6 +127,7 @@ public class Menu {
                     Solicitud.solicitudesPendientes.add(solicitud);
                     cliente.agregarSolicitud(solicitud);
                     cliente.setSolicitudes(true);
+                    System.out.println("\nSolicitud realizada exitosamente");
                     break;
 
                 case 9:
@@ -344,8 +347,7 @@ public class Menu {
                         System.out.print("\nIngrese la contraseña para poder acceder a esta función: ");
                         cadena = scanner.nextLine();
                         if(cadena.equals(contraseña)) {
-                            
-                            //metodo para ver inversionies
+                            Banco.mostrarInversionesRealizadas();
                             band = true;
                         }
                         else {

@@ -49,7 +49,7 @@ public class Usuario {
         String rolUsuario = rol == Rol.CLIENTE ? "Cliente" : rol == Rol.CAPTURISTA ? "Capturista" :
                 rol == Rol.EJECUTIVO ? "Ejecutivo" : "Inversionista";
 
-        System.out.println(String.format("\n\n---- Bienvenido al registro del %s", rolUsuario + "----"));
+        System.out.println(String.format("\n\n---- Bienvenido al registro del %s", rolUsuario + " ----"));
         System.out.println("\nIngresa los siguientes datos para continuar con el registro: ");
         System.out.print("\nNombre: ");
         String nombre = scanner.nextLine();
