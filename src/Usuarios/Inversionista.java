@@ -67,6 +67,7 @@ public class Inversionista extends Usuario{
                 }
                 else if(decision == 2){
                     boolean band2 = false;
+                    scanner.nextLine();
                     System.out.println("\n---- Consultar inversionista ----\n");
                     System.out.print("Ingrese el nombre de usuario del inversionista que desea consultar: ");
                     String nombreUsuario = scanner.nextLine();
@@ -273,13 +274,13 @@ public class Inversionista extends Usuario{
     }
 
 
-    public void realizarInversion(Inversionista inversionista) {
+    public void realizarInversion() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n---- Inversiones ----\n");
         System.out.print("Ingrese la cantidad que desea invertir: ");
         double cantidad = scanner.nextDouble();
-        inversionesRealizadas.add(String.format("\nCantidad aportada: %.2f", cantidad + "\nFecha del movimiento: " + LocalDate.now()));
-        Banco.inversionesRealizadas.add(String.format("Nombre del inversionista: %s %s \nCantidad aportada: %.2f", inversionista.getNombre(), inversionista.getApellidos(), cantidad + "\nSucursal: " + Banco.sucu + "\nFecha del movimiento: " + LocalDate.now())); 
+        inversionesRealizadas.add(String.format("\nCantidad aportada: %.2f MX", cantidad)+ "\nFecha del movimiento: " + LocalDate.now());
+        Banco.inversionesRealizadas.add(String.format("Nombre del inversionista: %s %s \nCantidad aportada: %.2f MX", getNombre(), getApellidos(), cantidad)+ "\nSucursal: " + Banco.sucu + "\nFecha del movimiento: " + LocalDate.now()); 
     }
 
 }

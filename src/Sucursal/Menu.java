@@ -427,7 +427,7 @@ public class Menu {
 
             switch(decision) {
                 case 1:
-                    inversionista.realizarInversion(inversionista);
+                    inversionista.realizarInversion();
                     break;
 
                 case 2:
