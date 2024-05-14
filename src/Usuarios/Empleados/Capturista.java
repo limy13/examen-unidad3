@@ -96,18 +96,23 @@ public class Capturista extends Usuario {
     public static void eliminarCapturista() {
         Scanner scanner = new Scanner(System.in);
         boolean band = false;
-        System.out.println("\n---- Eliminar capturista ----\n");
-        System.out.print("Ingrese el nombre de usuario del capturista que desea eliminar: ");
-        String nombreUsuario = scanner.nextLine();
-        for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA)) {
-            if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA).remove(usuario);
-                System.out.println("\nCapturista eliminado");
-                return;
-            }
+        if(Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA).isEmpty()) {
+            System.out.println("\nNo hay clientes registrados todavía");
         }
-        if(!band) {
-            System.out.println("\nEste nombre de usuario no pertenece a ningún capturista");
+        else {
+            System.out.println("\n---- Eliminar capturista ----\n");
+            System.out.print("Ingrese el nombre de usuario del capturista que desea eliminar: ");
+            String nombreUsuario = scanner.nextLine();
+            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA)) {
+                if(usuario.getNombreUsuario().equals(nombreUsuario)) {
+                    Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA).remove(usuario);
+                    System.out.println("\nCapturista eliminado");
+                    return;
+                }
+            }
+            if(!band) {
+                System.out.println("\nEste nombre de usuario no pertenece a ningún capturista");
+            }
         }
     }
 

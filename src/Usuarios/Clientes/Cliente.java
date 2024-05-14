@@ -191,26 +191,31 @@ public class Cliente extends Usuario {
     public static void eliminarCliente() {
         Scanner scanner = new Scanner(System.in);
         boolean band = false;
-        System.out.println("\n---- Eliminar cliente ----\n");
-        System.out.print("Ingrese el nombre de usuario del cliente que desea eliminar: ");
-        String nombreUsuario = scanner.nextLine();
-        for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
-            if(usuario.getNombreUsuario().equals(nombreUsuario)) {
-                Cliente cliente = (Cliente) usuario;
-                for(Usuario usuario2 : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
-                    Cliente cliente2 = (Cliente) usuario2;
-                    if(cliente2.getId() > cliente.getId()) {
-                        cliente2.setId();
-                    }
-                }
-                Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).remove(usuario);
-                setCantidadClientes();
-                System.out.println("\nCliente eliminado");
-                return;
-            }
+        if(Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).isEmpty()) {
+            System.out.println("\nNo hay clientes registrados todavía");
         }
-        if(!band) {
-            System.out.println("\nEste nombre de usuario no pertenece a ningún cliente");
+        else {
+            System.out.println("\n---- Eliminar cliente ----\n");
+            System.out.print("Ingrese el nombre de usuario del cliente que desea eliminar: ");
+            String nombreUsuario = scanner.nextLine();
+            for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
+                if(usuario.getNombreUsuario().equals(nombreUsuario)) {
+                    Cliente cliente = (Cliente) usuario;
+                    for(Usuario usuario2 : Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE)) {
+                        Cliente cliente2 = (Cliente) usuario2;
+                        if(cliente2.getId() > cliente.getId()) {
+                            cliente2.setId();
+                        }
+                    }
+                    Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).remove(usuario);
+                    setCantidadClientes();
+                    System.out.println("\nCliente eliminado");
+                    return;
+                }
+            }
+            if(!band) {
+                System.out.println("\nEste nombre de usuario no pertenece a ningún cliente");
+            }
         }
     }
 

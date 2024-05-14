@@ -95,14 +95,14 @@ public class Tarjeta {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n---- Retirar ----\n");
         System.out.println("Saldo actual: " + saldo);
-        System.out.println("\nIngrese la cantidad que desea retirar: ");
-        double cantidad = scanner.nextDouble();
         do {
+            System.out.print("\nIngrese la cantidad que desea retirar: ");
+            double cantidad = scanner.nextDouble();
             if(cantidad > saldo) {
                 System.out.println("\nLa cantidad a retirar sobrepasa el saldo actual en su tarjeta, por favor ingrese una cantidad válida");
             }
             else {
-                this.saldo -= saldo;
+                this.saldo -= cantidad;
                 band = true;
                 System.out.println("\nSe ha retirado " + cantidad + " MX de su tarjeta");
             }
@@ -115,7 +115,7 @@ public class Tarjeta {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n---- Depositar ----\n");
         System.out.println("Saldo actual: " + saldo);
-        System.out.println("\nIngrese la cantidad que desea depositar: ");
+        System.out.print("\nIngrese la cantidad que desea depositar: ");
         double cantidad = scanner.nextDouble();
         this.saldo += cantidad;
         System.out.println("\nSe ha depositado " + cantidad + " a su tarjeta");
