@@ -91,25 +91,47 @@ public class Usuario {
             System.out.print("Dia: ");
             dia = scanner.nextInt();
 
-            // Verificar que el año no sea futuro
-            if (año <= LocalDate.now().getYear()) {
-                // Validar el mes
-                if (mes >= 1 && mes <= 12 && mes <= LocalDate.now().getMonthValue()) {
+
+            // si ano es == a el actual hacer esto
+            if (año == LocalDate.now().getYear()){
+                if (mes >= 1 && mes <= 12 && mes <= LocalDate.now().getMonthValue() ) {
                     // Validar el día
                     if (dia >= 1 && dia <= obtenerDiasEnMes(mes)) {
                         fechaValida = true;
                     } else {
-                        System.out.println("\nError: El día ingresado no corresponde al mes especificado\n");
+                        System.out.println("\nError: El día ingresado no corresponde al mes especificado.");
                     }
                 } else {
-                    System.out.println("\nError: El mes ingresado no es válido\n");
+                    System.out.println("\nError: El mes ingresado no es válido.");
+                }
+
+            }
+
+
+
+
+            // Verificar que el año no sea futuro pero tampoco presente
+            if (año < LocalDate.now().getYear() && año > 1907 ) {
+                // Validar el mes
+
+                if (mes >= 1 && mes <= 12  ) {
+                    // Validar el día
+                    if (dia >= 1 && dia <= obtenerDiasEnMes(mes)) {
+                        fechaValida = true;
+                    } else {
+                        System.out.println("Error: El día ingresado no corresponde al mes especificado.");
+                    }
+                } else {
+                    System.out.println("Error: El mes ingresado no es válido.");
                 }
             } else {
-                System.out.println("\nError: El año ingresado no puede ser un año futuro\n");
-            }
-        }
-      return String.valueOf(LocalDate.of(año, mes, dia)); 
-    }
+                System.out.println("Error: El año ingresado no puede ser un año futuro o muy muy viejo.");
+            }//fin if
+        }//while
+
+      return fechaIngresada;
+    }//metodovalidar
+
 
     public static int obtenerDiasEnMes(int mes) {
         switch (mes) {
@@ -132,6 +154,7 @@ public class Usuario {
                 return 31; // Los demás meses tienen 31 días
         }
     }
+
 
     
     public static String registrarNombreUsuario() {
