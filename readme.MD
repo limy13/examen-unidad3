@@ -1,4 +1,4 @@
-#EXAMEN 3 POO
+# EXAMEN 3 POO
 
 Integrantes:
 - García Tinajero Lizeth
