@@ -28,18 +28,13 @@ public class Inversionista extends Usuario{
         String rfc = datos.get(9);
         String sucursal = datos.get(10);
 
-        Inversionista inversionista = new Inversionista(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc);
-
         System.out.println("\n¿Cancelar registro? (1 = si, 2 = no)");
         int decision = scanner.nextInt();
         if(decision == 1) {
             System.out.println("\nRegistro cancelado");
         }
         else {
-            if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.INVERSIONISTA)) {
-                Banco.sucursal.get(Banco.sucu).put(Rol.INVERSIONISTA, new ArrayList<Usuario>());
-            }
-    
+            Inversionista inversionista = new Inversionista(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc);
             Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA).add(inversionista);
             System.out.println("\nInversionista registrado exitosamente");
         }

@@ -44,10 +44,6 @@ public class Ejecutivo extends Usuario {
             System.out.println("\nRegistro cancelado");
         }
         else {
-            if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.EJECUTIVO)) {
-                Banco.sucursal.get(Banco.sucu).put(Rol.EJECUTIVO, new ArrayList<Usuario>());
-            }
-    
             Ejecutivo ejecutivo = new Ejecutivo(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc, salario);
             Banco.sucursal.get(Banco.sucu).get(Rol.EJECUTIVO).add(ejecutivo);
             System.out.println("\nEjecutivo registrado exitosamente");

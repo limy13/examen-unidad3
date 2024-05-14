@@ -1,10 +1,6 @@
 package Usuarios;
 import Usuarios.utils.Rol;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -71,7 +67,7 @@ public class Usuario {
         System.out.print("CURP: ");
         String curp = scanner.nextLine();
         String nombreUsuario = registrarNombreUsuario();
-        String rfc = generarRfc(fechaNacimiento, nombre, apellidoP.concat(" ").concat(apellidoM));
+        String rfc = generarRfc(String.valueOf(fechaNacimiento), nombre, apellidoP.concat(" ").concat(apellidoM));
         System.out.print("Contraseña: ");
         String contraseña = scanner.nextLine();
 
@@ -88,11 +84,11 @@ public class Usuario {
 
         while (!fechaValida) {
             System.out.println("Fecha de nacimiento:");
-            System.out.println("Año: ");
+            System.out.print("Año: ");
             año = scanner.nextInt();
-            System.out.println("Mes: ");
+            System.out.print("Mes: ");
             mes = scanner.nextInt();
-            System.out.println("Año: ");
+            System.out.print("Dia: ");
             dia = scanner.nextInt();
 
             // Verificar que el año no sea futuro
@@ -173,10 +169,10 @@ public class Usuario {
             char caracter = caracteres.charAt(random.nextInt(caracteres.length()));
             homoclave += caracter;
         }
-        String [] partesNacimiento = fechaNacimiento.split("/");
+        String [] partesNacimiento = fechaNacimiento.split("-");
         String [] partesApellido = apellido.split(" ");
         return rfc = ("" + apellido.charAt(0) + apellido.charAt(1) + partesApellido[1].charAt(0) + nombre.charAt(0) +
-        partesNacimiento[2].charAt(2) + partesNacimiento[2].charAt(3) + partesNacimiento[1] + partesNacimiento[0] + homoclave).toUpperCase();
+        partesNacimiento[0].charAt(2) + partesNacimiento[0].charAt(3) + partesNacimiento[1] + partesNacimiento[2] + homoclave).toUpperCase();
     }
 
     public String getNombre() {

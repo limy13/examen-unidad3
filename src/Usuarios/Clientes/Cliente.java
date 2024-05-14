@@ -112,20 +112,14 @@ public class Cliente extends Usuario {
         System.out.print("Saldo actual: ");
         double saldo = scanner.nextDouble();
         
-        Tarjeta tarjeta = new Tarjeta(saldo, TiposTarjeta.DÉBITO);
-
-        Cliente cliente = new Cliente(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc, tarjeta);
-
         System.out.print("\n¿Cancelar registro? (1 = si, 2 = no): ");
         int decision = scanner.nextInt();
         if(decision == 1) {
             System.out.println("\nRegistro cancelado");
         }
         else {
-            if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.CLIENTE)) {
-                Banco.sucursal.get(Banco.sucu).put(Rol.CLIENTE, new ArrayList<Usuario>());
-            }
-    
+            Tarjeta tarjeta = new Tarjeta(saldo, TiposTarjeta.DÉBITO);
+            Cliente cliente = new Cliente(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc, tarjeta);
             Banco.sucursal.get(Banco.sucu).get(Rol.CLIENTE).add(cliente);
             System.out.println("\nCliente registrado exitosamente");
         }

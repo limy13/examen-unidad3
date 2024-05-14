@@ -48,10 +48,6 @@ public class Capturista extends Usuario {
             System.out.println("\nRegistro cancelado");
         }
         else {
-            if(!Banco.sucursal.get(Banco.sucu).containsKey(Rol.CAPTURISTA)) {
-                Banco.sucursal.get(Banco.sucu).put(Rol.CAPTURISTA, new ArrayList<Usuario>());
-            }
-
             Capturista capturista = new Capturista(sucursal, direccion, curp, estado, ciudad, fechaNacimiento, apellido, nombre, nombreUsuario, contraseña, rfc, salario);
             Banco.sucursal.get(Banco.sucu).get(Rol.CAPTURISTA).add(capturista);
             System.out.println("\nCapturista registrado exitosamente");
