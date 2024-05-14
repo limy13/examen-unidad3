@@ -69,6 +69,7 @@ public class Inversionista extends Usuario{
                     boolean band2 = false;
                     scanner.nextLine();
                     System.out.println("\n---- Consultar inversionista ----\n");
+                    scanner.nextLine();
                     System.out.print("Ingrese el nombre de usuario del inversionista que desea consultar: ");
                     String nombreUsuario = scanner.nextLine();
                     for(Usuario usuario : Banco.sucursal.get(Banco.sucu).get(Rol.INVERSIONISTA)) {

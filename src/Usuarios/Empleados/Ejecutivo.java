@@ -78,6 +78,7 @@ public class Ejecutivo extends Usuario {
                 else if(decision == 2){
                     boolean band2 = false;
                     System.out.println("\n---- Consultar ejecutivo de cuenta ----\n");
+                    scanner.nextLine();
                     System.out.print("Ingrese el nombre de usuario del ejecutivo que desea consultar: ");
                     scanner.nextLine();
                     String nombreUsuario = scanner.nextLine();

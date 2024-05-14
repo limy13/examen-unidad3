@@ -82,6 +82,7 @@ public class Capturista extends Usuario {
                 else if(decision == 2){
                     boolean band2 = false;
                     System.out.println("\n---- Consultar capturista ----\n");
+                    scanner.nextLine();
                     System.out.print("Ingrese el nombre de usuario del capturista que desea consultar: ");
                     scanner.nextLine();
                     String nombreUsuario = scanner.nextLine();
