@@ -80,16 +80,15 @@ public class Usuario {
         Scanner scanner = new Scanner(System.in);
         boolean fechaValida = false;
         String fechaIngresada = "";
-        int año = 0, mes = 0, dia = 0;
 
         while (!fechaValida) {
-            System.out.println("Fecha de nacimiento:");
-            System.out.print("Año: ");
-            año = scanner.nextInt();
-            System.out.print("Mes: ");
-            mes = scanner.nextInt();
-            System.out.print("Dia: ");
-            dia = scanner.nextInt();
+            System.out.println("Ingresa una fecha con formato yyyy-MM-dd:");
+            fechaIngresada = scanner.nextLine();
+
+            String[] partesFecha = fechaIngresada.split("-");
+            int año = Integer.parseInt(partesFecha[0]);
+            int mes = Integer.parseInt(partesFecha[1]);
+            int dia = Integer.parseInt(partesFecha[2]);
 
 
             // si ano es == a el actual hacer esto
@@ -99,13 +98,15 @@ public class Usuario {
                     if (dia >= 1 && dia <= obtenerDiasEnMes(mes)) {
                         fechaValida = true;
                     } else {
-                        System.out.println("\nError: El día ingresado no corresponde al mes especificado.");
+                        System.out.println("Error: El día ingresado no corresponde al mes especificado.");
                     }
                 } else {
-                    System.out.println("\nError: El mes ingresado no es válido.");
+                    System.out.println("Error: El mes ingresado no es válido.");
                 }
 
             }
+
+            
 
 
 
@@ -132,7 +133,7 @@ public class Usuario {
       return fechaIngresada;
     }//metodovalidar
 
-
+    
     public static int obtenerDiasEnMes(int mes) {
         switch (mes) {
             case 2:
@@ -154,7 +155,7 @@ public class Usuario {
                 return 31; // Los demás meses tienen 31 días
         }
     }
-
+    
 
     
     public static String registrarNombreUsuario() {
