@@ -61,19 +61,7 @@ public class Usuario {
         String apellidoP = scanner.nextLine();
         System.out.print("Apellido materno: ");
         String apellidoM = scanner.nextLine();
-
-        System.out.print("Fecha de nacimiento: ");
-        //String fechaNacimientoString = validarFecha();
-        System.out.print("\nAño: ");
-        int año = scanner.nextInt();
-        System.out.print("Mes: ");
-        int mes = scanner.nextInt();
-        System.out.print("Día: ");
-        int dia = scanner.nextInt();
-        LocalDate fechaNacimiento = LocalDate.of(año, mes, dia);
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/YYYY"); 
-        String fechaFormateada = fechaNacimiento.format(pattern);
-        scanner.nextLine();
+        String fechaNacimiento = validarFecha();
         System.out.print("Estado: ");
         String estado = scanner.nextLine();
         System.out.print("Ciudad: ");
@@ -83,41 +71,69 @@ public class Usuario {
         System.out.print("CURP: ");
         String curp = scanner.nextLine();
         String nombreUsuario = registrarNombreUsuario();
-        String rfc = generarRfc(fechaFormateada, nombre, apellidoP.concat(" ").concat(apellidoM));
+        String rfc = generarRfc(fechaNacimiento, nombre, apellidoP.concat(" ").concat(apellidoM));
         System.out.print("Contraseña: ");
         String contraseña = scanner.nextLine();
 
-        datosComun.addAll(Arrays.asList(nombre, apellidoP.concat(" ").concat(apellidoM), fechaFormateada, estado, ciudad, direccion, curp.toUpperCase(), nombreUsuario, contraseña, rfc, Banco.sucu));
+        datosComun.addAll(Arrays.asList(nombre, apellidoP.concat(" ").concat(apellidoM), fechaNacimiento, estado, ciudad, direccion, curp.toUpperCase(), nombreUsuario, contraseña, rfc, Banco.sucu));
         return datosComun;
     }
 
 
     public static String validarFecha() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingresa una fecha con formato yyyy-MM-dd:");
-        String fechaIngresada = scanner.nextLine();
+        boolean fechaValida = false;
+        String fechaIngresada = "";
+        int año = 0, mes = 0, dia = 0;
 
-        // Formateador de fecha para analizar la fecha ingresada
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        while (!fechaValida) {
+            System.out.println("Fecha de nacimiento:");
+            System.out.println("Año: ");
+            año = scanner.nextInt();
+            System.out.println("Mes: ");
+            mes = scanner.nextInt();
+            System.out.println("Año: ");
+            dia = scanner.nextInt();
 
-        try {
-            // Convertir la fecha ingresada a un objeto Date
-            Date fechaIngresadaDate = sdf.parse(fechaIngresada);
-
-            // Obtener la fecha actual
-            Date fechaActual = new Date();
-
-            // Comparar la fecha ingresada con la fecha actual
-            if (fechaIngresadaDate.before(fechaActual) || fechaIngresadaDate.equals(fechaActual)) {
-                // La fecha ingresada es válida
-                return sdf.format(fechaIngresadaDate); // Devolver la fecha formateada como cadena
+            // Verificar que el año no sea futuro
+            if (año <= LocalDate.now().getYear()) {
+                // Validar el mes
+                if (mes >= 1 && mes <= 12) {
+                    // Validar el día
+                    if (dia >= 1 && dia <= obtenerDiasEnMes(mes)) {
+                        fechaValida = true;
+                    } else {
+                        System.out.println("Error: El día ingresado no corresponde al mes especificado.");
+                    }
+                } else {
+                    System.out.println("Error: El mes ingresado no es válido.");
+                }
             } else {
-                // La fecha ingresada aún no sucede
-                return "\nLa fecha ingresada aun no sucede";
+                System.out.println("Error: El año ingresado no puede ser un año futuro.");
             }
-        } catch (ParseException e) {
-            // Error al analizar la fecha ingresada
-            return "\nError: Formato de fecha incorrecto.";
+        }
+      return String.valueOf(LocalDate.of(año, mes, dia)); 
+    }
+
+    public static int obtenerDiasEnMes(int mes) {
+        switch (mes) {
+            case 2:
+                return 28; 
+                 
+            case 4:
+                return 30; // Abril, junio, septiembre y noviembre tienen 30 días
+
+            case 6: 
+                return 30;
+
+            case 9: 
+                return 30;
+
+            case 11: 
+                return 30;
+
+            default:
+                return 31; // Los demás meses tienen 31 días
         }
     }
 

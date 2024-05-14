@@ -339,6 +339,7 @@ public class Menu {
                         System.out.print("\nIngrese la contraseña para poder acceder a esta función: ");
                         cadena = scanner.nextLine();
                         if(cadena.equals(contraseña)) {
+                            
                             //metodo para ver inversionies
                             band = true;
                         }
